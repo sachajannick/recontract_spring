@@ -1,15 +1,16 @@
-package nl.novi.stuivenberg.springboot.example.security.service;
+package com.recontract.recontract.service;
 
-import nl.novi.stuivenberg.springboot.example.security.domain.ERole;
-import nl.novi.stuivenberg.springboot.example.security.domain.Role;
-import nl.novi.stuivenberg.springboot.example.security.domain.User;
-import nl.novi.stuivenberg.springboot.example.security.payload.request.LoginRequest;
-import nl.novi.stuivenberg.springboot.example.security.payload.request.SignupRequest;
-import nl.novi.stuivenberg.springboot.example.security.payload.response.JwtResponse;
-import nl.novi.stuivenberg.springboot.example.security.payload.response.MessageResponse;
-import nl.novi.stuivenberg.springboot.example.security.repository.RoleRepository;
-import nl.novi.stuivenberg.springboot.example.security.repository.UserRepository;
-import nl.novi.stuivenberg.springboot.example.security.service.security.jwt.JwtUtils;
+import com.recontract.recontract.domain.ERole;
+import com.recontract.recontract.domain.Role;
+import com.recontract.recontract.domain.User;
+import com.recontract.recontract.repository.RoleRepository;
+import com.recontract.recontract.repository.UserRepository;
+import com.recontract.recontract.service.security.jwt.AuthEntryPointJwt;
+import com.recontract.recontract.service.security.jwt.JwtUtils;
+import com.recontract.recontract.payload.request.LoginRequest;
+import com.recontract.recontract.payload.request.SignupRequest;
+import com.recontract.recontract.payload.response.JwtResponse;
+import com.recontract.recontract.payload.response.MessageResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -88,7 +89,11 @@ public class AuthorizationService {
         // Create new user's account
         User user = new User(signUpRequest.getUsername(),
                 signUpRequest.getEmail(),
-                encoder.encode(signUpRequest.getPassword()));
+                encoder.encode(signUpRequest.getPassword()),
+                signUpRequest.getHiringOrFreelancer(),
+                signUpRequest.getFullName(),
+                signUpRequest.getLocation(),
+                signUpRequest.getHeadline());
 
         Set<String> strRoles = signUpRequest.getRole();
         Set<Role> roles = new HashSet<>();
@@ -132,7 +137,7 @@ public class AuthorizationService {
      *
      * Wanneer de gebruikersnaam/wachtwoord combinatie niet klopt, wordt er een Runtime exception gegooid:
      * 401 Unauthorized. Deze wordt gegooid door
-     * {@link nl.novi.stuivenberg.springboot.example.security.service.security.jwt.AuthEntryPointJwt}
+     * {@link AuthEntryPointJwt}
      *
      *
      * @param loginRequest De payload met username en password.

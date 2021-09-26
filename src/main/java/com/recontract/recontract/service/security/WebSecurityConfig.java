@@ -1,7 +1,7 @@
-package nl.novi.stuivenberg.springboot.example.security.service.security;
+package com.recontract.recontract.service.security;
 
-import nl.novi.stuivenberg.springboot.example.security.service.security.jwt.AuthEntryPointJwt;
-import nl.novi.stuivenberg.springboot.example.security.service.security.jwt.AuthTokenFilter;
+import com.recontract.recontract.service.security.jwt.AuthEntryPointJwt;
+import com.recontract.recontract.service.security.jwt.AuthTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;

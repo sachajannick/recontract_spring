@@ -1,4 +1,4 @@
-package nl.novi.stuivenberg.springboot.example.security;
+package com.recontract.recontract;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

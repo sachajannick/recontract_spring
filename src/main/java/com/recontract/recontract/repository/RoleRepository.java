@@ -1,7 +1,7 @@
-package nl.novi.stuivenberg.springboot.example.security.repository;
+package com.recontract.recontract.repository;
 
-import nl.novi.stuivenberg.springboot.example.security.domain.ERole;
-import nl.novi.stuivenberg.springboot.example.security.domain.Role;
+import com.recontract.recontract.domain.ERole;
+import com.recontract.recontract.domain.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

@@ -1,7 +1,7 @@
-package nl.novi.stuivenberg.springboot.example.security.service;
+package com.recontract.recontract.service;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import nl.novi.stuivenberg.springboot.example.security.domain.User;
+import com.recontract.recontract.domain.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

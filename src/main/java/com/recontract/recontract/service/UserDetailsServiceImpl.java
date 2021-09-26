@@ -1,7 +1,7 @@
-package nl.novi.stuivenberg.springboot.example.security.service;
+package com.recontract.recontract.service;
 
-import nl.novi.stuivenberg.springboot.example.security.domain.User;
-import nl.novi.stuivenberg.springboot.example.security.repository.UserRepository;
+import com.recontract.recontract.domain.User;
+import com.recontract.recontract.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

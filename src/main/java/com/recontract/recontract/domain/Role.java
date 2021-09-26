@@ -1,4 +1,4 @@
-package nl.novi.stuivenberg.springboot.example.security.domain;
+package com.recontract.recontract.domain;
 
 import org.hibernate.annotations.GenericGenerator;
 

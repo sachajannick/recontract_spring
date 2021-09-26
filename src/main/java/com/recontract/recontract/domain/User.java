@@ -1,16 +1,8 @@
-package nl.novi.stuivenberg.springboot.example.security.domain;
+package com.recontract.recontract.domain;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity
@@ -31,21 +23,36 @@ public class User {
     private String username;
     private String email;
     private String password;
+    private String hiringOrFreelancer;
+    private String fullName;
+    private String location;
+    private String headline;
+//    @Lob
+//    private byte[] profilePicture;
+
+    @OneToOne(mappedBy = "user")
+    private Search search;
 
     @ManyToMany
     @JoinTable (name = "user_role",
-    joinColumns = @JoinColumn(name = "user_id"),
-    inverseJoinColumns = @JoinColumn(name = "role_id"))
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
     public User() {
-
     }
 
-    public User(String username, String email, String password) {
+    public User(String username, String email, String password, String hiringOrFreelancer, String fullName, String location, String headline) {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.hiringOrFreelancer = hiringOrFreelancer;
+        this.fullName = fullName;
+        this.location = location;
+        this.headline = headline;
+    }
+
+    public User(String username, String email, String encode, byte[] profilePicture) {
     }
 
     public long getId() {
@@ -80,11 +87,59 @@ public class User {
         this.password = password;
     }
 
+    public String getHiringOrFreelancer() {
+        return hiringOrFreelancer;
+    }
+
+    public void setHiringOrFreelancer(String hiringOrFreelancer) {
+        this.hiringOrFreelancer = hiringOrFreelancer;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getHeadline() {
+        return headline;
+    }
+
+    public void setHeadline(String headline) {
+        this.headline = headline;
+    }
+
+//    public byte[] getProfilePicture() {
+//        return profilePicture;
+//    }
+//
+//    public void setProfilePicture(byte[] profilePicture) {
+//        this.profilePicture = profilePicture;
+//    }
+
     public Set<Role> getRoles() {
         return roles;
     }
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Search getSearch() {
+        return search;
+    }
+
+    public void setSearch(Search search) {
+        this.search = search;
     }
 }

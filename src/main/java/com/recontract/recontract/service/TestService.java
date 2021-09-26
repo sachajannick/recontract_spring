@@ -1,4 +1,4 @@
-package nl.novi.stuivenberg.springboot.example.security.service;
+package com.recontract.recontract.service;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;

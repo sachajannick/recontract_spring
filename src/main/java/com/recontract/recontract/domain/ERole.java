@@ -1,4 +1,4 @@
-package nl.novi.stuivenberg.springboot.example.security.domain;
+package com.recontract.recontract.domain;
 
 /**
  * Deze klasse is een Enum. Een enum is niet veel meer dan een opsomming met vaste (dus niet veranderbare) waardes.

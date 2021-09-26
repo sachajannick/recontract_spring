@@ -1,4 +1,4 @@
-package nl.novi.stuivenberg.springboot.example.security.service.security.jwt;
+package com.recontract.recontract.service.security.jwt;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package nl.novi.stuivenberg.springboot.example.security.payload.request;
+package com.recontract.recontract.payload.request;
 
 public class LoginRequest {
 

@@ -1,10 +1,10 @@
-package nl.novi.stuivenberg.springboot.example.security.controller;
+package com.recontract.recontract.controller;
 
-import nl.novi.stuivenberg.springboot.example.security.payload.request.LoginRequest;
-import nl.novi.stuivenberg.springboot.example.security.payload.request.SignupRequest;
-import nl.novi.stuivenberg.springboot.example.security.payload.response.JwtResponse;
-import nl.novi.stuivenberg.springboot.example.security.payload.response.MessageResponse;
-import nl.novi.stuivenberg.springboot.example.security.service.AuthorizationService;
+import com.recontract.recontract.payload.request.LoginRequest;
+import com.recontract.recontract.payload.request.SignupRequest;
+import com.recontract.recontract.payload.response.JwtResponse;
+import com.recontract.recontract.payload.response.MessageResponse;
+import com.recontract.recontract.service.AuthorizationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package nl.novi.stuivenberg.springboot.example.security.payload.response;
+package com.recontract.recontract.payload.response;
 
 public class MessageResponse {
     private String message;
