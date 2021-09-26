@@ -1,13 +1,13 @@
-package nl.novi.stuivenberg.springboot.example.security;
+package com.recontract.recontract;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class NoviExamplesApplication {
+public class RecontractBackEndApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(NoviExamplesApplication.class, args);
+		SpringApplication.run(RecontractBackEndApplication.class, args);
 	}
 
 }
