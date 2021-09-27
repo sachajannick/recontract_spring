@@ -23,8 +23,8 @@ public class SearchController {
 
     @GetMapping(value = "/id/{id}")
     @PreAuthorize("hasRole('USER')")
-    public Search getAllSearches(@PathVariable ("id") Long userId) {
-        return searchServiceImpl.getAllSearches(userId);
+    public Search getSearchById(@PathVariable ("id") Long userId) {
+        return searchServiceImpl.getSearchById(userId);
     }
 
     @PostMapping(value = "/new/id/{id}")
@@ -33,6 +33,14 @@ public class SearchController {
         searchServiceImpl.createSearch(search, userId);
         return ResponseEntity.ok("Search created");
     }
+
+    @DeleteMapping(value = "/id/{id}")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<Object> deleteSearch(@PathVariable ("id") Long searchId) {
+        searchServiceImpl.deleteSearch(searchId);
+        return ResponseEntity.ok("Search deleted");
+    }
+
 
     @GetMapping(value = "/boolean/id/{id}")
     @PreAuthorize("hasRole('USER')")

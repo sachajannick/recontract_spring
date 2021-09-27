@@ -23,7 +23,7 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
-    public Search getAllSearches(Long userId) {
+    public Search getSearchById(Long userId) {
         List<Search> searches = searchRepository.findAll();
         Search result = new Search();
 
@@ -42,6 +42,16 @@ public class SearchServiceImpl implements SearchService {
         Optional<User> user = userRepository.findById(userId);
         search.setUser(user.get());
         searchRepository.save(search);
+    }
+
+    @Override
+    public void deleteSearch(Long searchId) {
+        Optional<Search> search = searchRepository.findById(searchId);
+        if (search.isPresent()) {
+            searchRepository.delete(search.get());
+        } else {
+            throw new RuntimeException();
+        }
     }
 
     @Override
