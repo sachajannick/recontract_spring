@@ -42,7 +42,7 @@ public class UserController {
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"picture\"").body(picture);
     }
 
-    @PatchMapping(value="/id/{id}")
+    @PatchMapping(value = "/id/{id}")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<Object> updateUser(@PathVariable ("id") Long userId, @RequestBody dtoUser dto) {
         userServiceImpl.updateUser(dto.username, dto.email, dto.password, dto.fullName, dto.location, dto.headline, dto.profilePicture, userId);
