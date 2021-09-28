@@ -46,7 +46,7 @@ public class UserController {
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<Object> updateUser(@PathVariable ("id") Long userId, @RequestBody dtoUser dto) {
         userServiceImpl.updateUser(dto.username, dto.email, dto.password, dto.fullName, dto.location, dto.headline, dto.profilePicture, userId);
-        return ResponseEntity.ok("Search updated");
+        return ResponseEntity.ok("User updated");
     }
 
     @DeleteMapping(value = "/id/{id}")
