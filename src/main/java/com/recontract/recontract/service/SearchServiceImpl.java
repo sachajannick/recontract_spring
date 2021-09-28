@@ -2,6 +2,8 @@ package com.recontract.recontract.service;
 
 import com.recontract.recontract.domain.Search;
 import com.recontract.recontract.domain.User;
+import com.recontract.recontract.exception.BadRequestException;
+import com.recontract.recontract.exception.RecordNotFoundException;
 import com.recontract.recontract.repository.SearchRepository;
 import com.recontract.recontract.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +33,7 @@ public class SearchServiceImpl implements SearchService {
             if (searches.get(i).getUser().getId() == userId) {
                 result = searches.get(i);
             } else {
-                throw new RuntimeException();
+                throw new RecordNotFoundException();
             }
         }
         return result;
@@ -40,16 +42,24 @@ public class SearchServiceImpl implements SearchService {
     @Override
     public void createSearch(Search search, Long userId) {
         Optional<User> user = userRepository.findById(userId);
-        search.setUser(user.get());
-        searchRepository.save(search);
+        try {
+            search.setUser(user.get());
+            searchRepository.save(search);
+        } catch (Exception e) {
+            throw new RecordNotFoundException();
+        }
     }
 
     @Override
     public void updateSearch(String functionTitle, int amount, Long searchId) {
         Optional<Search> search = searchRepository.findById(searchId);
-        search.get().setFunctionTitle(functionTitle);
-        search.get().setAmount(amount);
-        searchRepository.save(search.get());
+        try {
+            search.get().setFunctionTitle(functionTitle);
+            search.get().setAmount(amount);
+            searchRepository.save(search.get());
+        } catch (Exception e) {
+            throw new BadRequestException();
+        }
     }
 
     @Override
