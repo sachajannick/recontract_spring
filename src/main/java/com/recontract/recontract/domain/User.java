@@ -44,7 +44,14 @@ public class User {
     public User() {
     }
 
-    public User(String username, String email, String password, String hiringOrFreelancer, String fullName, String location, String headline, byte[] profilePicture) {
+    public User(String username,
+                String email,
+                String password,
+                String hiringOrFreelancer,
+                String fullName,
+                String location,
+                String headline,
+                byte[] profilePicture) {
         this.username = username;
         this.email = email;
         this.password = password;
