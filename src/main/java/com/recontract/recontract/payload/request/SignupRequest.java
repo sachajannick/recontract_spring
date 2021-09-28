@@ -27,6 +27,7 @@ public class SignupRequest {
     private String fullName;
     private String location;
     private String headline;
+    @Lob
     private byte[] profilePicture;
 
     public String getUsername() {
