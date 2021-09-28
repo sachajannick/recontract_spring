@@ -53,6 +53,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void updateUser(String username, String email, String password, String fullName, String location, String headline, byte[] profilePicture, Long userId) {
+        Optional<User> user = userRepository.findById(userId);
+        user.get().setUsername(username);
+        user.get().setEmail(email);
+        user.get().setPassword(password);
+        user.get().setFullName(fullName);
+        user.get().setLocation(location);
+        user.get().setHeadline(headline);
+        user.get().setProfilePicture(profilePicture);
+        userRepository.save(user.get());
+    }
+
+    @Override
     public void deleteUserById(Long userId) {
         Optional<User> user = userRepository.findById(userId);
         if (user.isPresent()) {

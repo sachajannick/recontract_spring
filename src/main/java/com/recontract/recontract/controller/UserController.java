@@ -1,6 +1,7 @@
 package com.recontract.recontract.controller;
 
 import com.recontract.recontract.domain.User;
+import com.recontract.recontract.dto.dtoUser;
 import com.recontract.recontract.service.UserServiceImpl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +40,13 @@ public class UserController {
     public ResponseEntity<byte[]> getProfilePicture(@PathVariable ("id") long userId) {
         var picture = userServiceImpl.getProfilePicture(userId);
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"picture\"").body(picture);
+    }
+
+    @PatchMapping(value="/id/{id}")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<Object> updateUser(@PathVariable ("id") Long userId, @RequestBody dtoUser dto) {
+        userServiceImpl.updateUser(dto.username, dto.email, dto.password, dto.fullName, dto.location, dto.headline, dto.profilePicture, userId);
+        return ResponseEntity.ok("Search updated");
     }
 
     @DeleteMapping(value = "/id/{id}")

@@ -9,5 +9,6 @@ public interface UserService {
     User getUserById(long userId);
     void uploadProfilePicture(Long userId, MultipartFile file) throws IOException;
     byte[] getProfilePicture(Long userId);
+    void updateUser(String username, String email, String password, String fullName, String location, String headline, byte[] profilePicture, Long userId);
     void deleteUserById(Long userId);
 }
