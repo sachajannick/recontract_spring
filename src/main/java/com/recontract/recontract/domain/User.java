@@ -119,13 +119,13 @@ public class User {
         this.headline = headline;
     }
 
-//    public byte[] getProfilePicture() {
-//        return profilePicture;
-//    }
-//
-//    public void setProfilePicture(byte[] profilePicture) {
-//        this.profilePicture = profilePicture;
-//    }
+    public byte[] getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(byte[] profilePicture) {
+        this.profilePicture = profilePicture;
+    }
 
     public Set<Role> getRoles() {
         return roles;

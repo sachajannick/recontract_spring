@@ -1,6 +1,7 @@
 package com.recontract.recontract.service;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,47 +21,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserById(Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(RuntimeException::new);
+    public void uploadProfilePicture(Long id, MultipartFile file) throws IOException {
+        Optional<User> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            user.get().setProfilePicture(file.getBytes());
+            userRepository.save(user.get());
+        } else {
+            throw new RuntimeException();
+        }
     }
 
     @Override
-    public User updateUser(User user, Long id) {
-        User existingUser = userRepository.findById(id)
-                .orElseThrow(RuntimeException::new);
-
-        existingUser.setEmail(user.getEmail());
-        existingUser.setPassword(user.getPassword());
-        existingUser.setFullName(user.getFullName());
-        existingUser.setLocation(user.getLocation());
-        existingUser.setHeadline(user.getHeadline());
-//        existingUser.setProfilePicture(user.getProfilePicture());
-
-        userRepository.save(existingUser);
-        return existingUser;
+    public byte[] getProfilePicture(Long id) {
+        Optional<User> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            return user.get().getProfilePicture();
+        } else {
+            throw new RuntimeException();
+        }
     }
-
-//    @Override
-//    public void uploadProfilePicture(Long id, MultipartFile file) throws IOException {
-//        var optionalUser = userRepository.findById(id);
-//        if (optionalUser.isPresent()) {
-//            User user = optionalUser.get();
-//            user.setProfilePicture(file.getBytes());
-//            userRepository.save(user);
-//        } else {
-//            throw new RuntimeException();
-//        }
-//    }
-
-//    @Override
-//    public byte[] getProfilePicture(Long id) {
-//        var optionalUser = userRepository.findById(id);
-//        if (optionalUser.isPresent()) {
-//            User user = optionalUser.get();
-//            return user.getProfilePicture();
-//        } else {
-//            throw new ResourceNotFoundException("User", "Id", id);
-//        }
-//    }
 }
