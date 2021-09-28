@@ -42,7 +42,7 @@ public class SearchController {
 
     @GetMapping(value = "/boolean/id/{id}")
     @PreAuthorize("hasRole('USER')")
-    public boolean searchIsPresent(@PathVariable ("id") Long userId) {
+    public boolean checkSearchIsPresentOnUser(@PathVariable ("id") Long userId) {
         return searchServiceImpl.checkSearchIsPresentOnUser(userId);
     }
 }
