@@ -45,14 +45,24 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
-    public void deleteSearch(Long searchId) {
+    public void updateSearch(String functionTitle, int amount, Long searchId) {
         Optional<Search> search = searchRepository.findById(searchId);
-        if (search.isPresent()) {
-            searchRepository.delete(search.get());
-        } else {
-            throw new RuntimeException();
-        }
+//        searchRepository.delete(search.get());
+        search.get().setFunctionTitle(functionTitle);
+        search.get().setAmount(amount);
+        searchRepository.save(search.get());
     }
+
+
+//    @Override
+//    public void deleteSearch(Long searchId) {
+//        Optional<Search> search = searchRepository.findById(searchId);
+//        if (search.isPresent()) {
+//            searchRepository.delete(search.get());
+//        } else {
+//            throw new RuntimeException();
+//        }
+//    }
 
     @Override
     public boolean checkSearchIsPresentOnUser(Long userId) {

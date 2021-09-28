@@ -1,6 +1,7 @@
 package com.recontract.recontract.controller;
 
 import com.recontract.recontract.domain.Search;
+import com.recontract.recontract.dto.dtoSearch;
 import com.recontract.recontract.service.SearchService;
 import com.recontract.recontract.service.SearchServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,18 +28,25 @@ public class SearchController {
         return searchServiceImpl.getSearchById(userId);
     }
 
-    @PostMapping(value = "/new/id/{id}")
+    @PostMapping(value = "/id/{id}")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<Object> newSearch(@PathVariable ("id") Long userId, @RequestBody Search search) {
+    public ResponseEntity<Object> createSearch(@PathVariable ("id") Long userId, @RequestBody Search search) {
         searchServiceImpl.createSearch(search, userId);
         return ResponseEntity.ok("Search created");
     }
 
-    @DeleteMapping(value = "/id/{id}")
+//    @DeleteMapping(value = "/id/{id}")
+//    @PreAuthorize("hasRole('USER')")
+//    public ResponseEntity<Object> deleteSearch(@PathVariable ("id") Long searchId) {
+//        searchServiceImpl.deleteSearch(searchId);
+//        return ResponseEntity.ok("Search deleted");
+//    }
+
+    @PatchMapping(value="/id/{id}")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<Object> deleteSearch(@PathVariable ("id") Long searchId) {
-        searchServiceImpl.deleteSearch(searchId);
-        return ResponseEntity.ok("Search deleted");
+    public ResponseEntity<Object> updateSearch(@PathVariable ("id") Long searchId, @RequestBody dtoSearch dto) {
+        searchServiceImpl.updateSearch(dto.functionTitle,dto.amount, searchId);
+        return ResponseEntity.ok("Search updated");
     }
 
 
