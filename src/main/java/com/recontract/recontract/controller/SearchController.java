@@ -47,9 +47,4 @@ public class SearchController {
     public boolean searchIsPresent(@PathVariable ("id") Long userId) {
         return searchServiceImpl.checkSearchIsPresentOnUser(userId);
     }
-
-
-
-
-
 }
