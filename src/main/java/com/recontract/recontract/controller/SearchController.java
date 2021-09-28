@@ -42,7 +42,6 @@ public class SearchController {
         return ResponseEntity.ok("Search updated");
     }
 
-
     @GetMapping(value = "/boolean/id/{id}")
     @PreAuthorize("hasRole('USER')")
     public boolean searchIsPresent(@PathVariable ("id") Long userId) {
