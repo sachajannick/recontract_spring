@@ -5,7 +5,6 @@ import com.recontract.recontract.domain.Role;
 import com.recontract.recontract.domain.User;
 import com.recontract.recontract.repository.RoleRepository;
 import com.recontract.recontract.repository.UserRepository;
-import com.recontract.recontract.service.security.jwt.AuthEntryPointJwt;
 import com.recontract.recontract.service.security.jwt.JwtUtils;
 import com.recontract.recontract.payload.request.LoginRequest;
 import com.recontract.recontract.payload.request.SignupRequest;
@@ -65,14 +64,6 @@ public class AuthorizationService {
         this.jwtUtils = jwtUtils;
     }
 
-    /**
-     *
-     * Deze methode verwerkt de gebruiker die wil registreren. De username en e-mail worden gecheckt. Eventuele rollen
-     * worden toegevoegd en de gebruiker wordt opgeslagen in de database.
-     *
-     * @param signUpRequest de payload signup-request met gebruikersnaam en wachtwoord.
-     * @return een HTTP response met daarin een succesbericht.
-     */
     public ResponseEntity<MessageResponse> registerUser(@Valid SignupRequest signUpRequest) {
         if (Boolean.TRUE.equals(userRepository.existsByUsername(signUpRequest.getUsername()))) {
             return ResponseEntity
@@ -86,7 +77,6 @@ public class AuthorizationService {
                     .body(new MessageResponse("Error: Email is already in use!"));
         }
 
-        // Create new user's account
         User user = new User(signUpRequest.getUsername(),
                 signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()),
@@ -132,18 +122,6 @@ public class AuthorizationService {
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
-    /**
-     * Deze methode controleert de ontvangen username en wachtwoord. Het gebruikt hiervoor de
-     * AuthenticationManager. I.a.w. Spring security doet die allemaal voor ons.
-     *
-     * Wanneer de gebruikersnaam/wachtwoord combinatie niet klopt, wordt er een Runtime exception gegooid:
-     * 401 Unauthorized. Deze wordt gegooid door
-     * {@link AuthEntryPointJwt}
-     *
-     *
-     * @param loginRequest De payload met username en password.
-     * @return een HTTP-response met daarin de JWT-token.
-     */
     public ResponseEntity<JwtResponse> authenticateUser(@Valid LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
@@ -164,5 +142,4 @@ public class AuthorizationService {
                 userDetails.getEmail(),
                 roles));
     }
-
 }
