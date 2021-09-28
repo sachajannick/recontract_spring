@@ -35,13 +35,6 @@ public class SearchController {
         return ResponseEntity.ok("Search created");
     }
 
-//    @DeleteMapping(value = "/id/{id}")
-//    @PreAuthorize("hasRole('USER')")
-//    public ResponseEntity<Object> deleteSearch(@PathVariable ("id") Long searchId) {
-//        searchServiceImpl.deleteSearch(searchId);
-//        return ResponseEntity.ok("Search deleted");
-//    }
-
     @PatchMapping(value="/id/{id}")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<Object> updateSearch(@PathVariable ("id") Long searchId, @RequestBody dtoSearch dto) {

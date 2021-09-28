@@ -7,6 +7,5 @@ public interface SearchService {
     Search getSearchById(Long userId);
     void createSearch(Search search, Long userId);
     void updateSearch(String functionTitle, int amount, Long searchId);
-//    void deleteSearch(Long searchId);
     boolean checkSearchIsPresentOnUser(Long userId);
 }

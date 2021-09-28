@@ -6,6 +6,4 @@ import com.recontract.recontract.domain.Search;
 
 @Repository
 public interface SearchRepository extends JpaRepository<Search, Long> {
-
-
 }
