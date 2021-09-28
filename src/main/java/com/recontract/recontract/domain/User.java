@@ -27,8 +27,8 @@ public class User {
     private String fullName;
     private String location;
     private String headline;
-//    @Lob
-//    private byte[] profilePicture;
+    @Lob
+    private byte[] profilePicture;
 
     @OneToOne(mappedBy = "user")
     private Search search;
