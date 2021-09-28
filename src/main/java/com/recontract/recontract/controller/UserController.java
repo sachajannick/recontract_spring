@@ -1,5 +1,6 @@
 package com.recontract.recontract.controller;
 
+import com.recontract.recontract.domain.User;
 import com.recontract.recontract.service.UserServiceImpl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -20,18 +21,30 @@ public class UserController {
         this.userServiceImpl = userServiceImpl;
     }
 
-    @PatchMapping
+    @GetMapping(value = "/id/{id}")
+    public ResponseEntity<Object> getUserById(@PathVariable("id") long userId) {
+        User user = userServiceImpl.getUserById(userId);
+        return ResponseEntity.ok(user);
+    }
+
+    @PatchMapping(value="/profile-picture/id/{id}")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<Object> uploadProfilePicture(@PathVariable ("id") long userId, @RequestParam("file") MultipartFile file) throws IOException {
         userServiceImpl.uploadProfilePicture(userId, file);
         return ResponseEntity.ok("Profile picture uploaded");
     }
 
-    @GetMapping(value = "/picture/id/{id}")
+    @GetMapping(value = "/profile-picture/id/{id}")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<byte[]> getProfilePicture(@PathVariable ("id") long userId) {
         var picture = userServiceImpl.getProfilePicture(userId);
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"picture\"").body(picture);
+    }
+
+    @DeleteMapping(value = "/id/{id}")
+    public ResponseEntity<Object> deleteUserById(@PathVariable("id") long userId) {
+        userServiceImpl.deleteUserById(userId);
+        return ResponseEntity.ok("User successfully deleted with id: " + userId);
     }
 
 //    @PatchMapping

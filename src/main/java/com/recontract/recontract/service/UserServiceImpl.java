@@ -20,9 +20,20 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
+
     @Override
-    public void uploadProfilePicture(Long id, MultipartFile file) throws IOException {
-        Optional<User> user = userRepository.findById(id);
+    public User getUserById(long userId) {
+        Optional<User> user = userRepository.findById(userId);
+        if (user.isPresent()) {
+            return user.get();
+        } else {
+            throw new RuntimeException();
+        }
+    }
+
+    @Override
+    public void uploadProfilePicture(Long userId, MultipartFile file) throws IOException {
+        Optional<User> user = userRepository.findById(userId);
         if (user.isPresent()) {
             user.get().setProfilePicture(file.getBytes());
             userRepository.save(user.get());
@@ -32,10 +43,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public byte[] getProfilePicture(Long id) {
-        Optional<User> user = userRepository.findById(id);
+    public byte[] getProfilePicture(Long userId) {
+        Optional<User> user = userRepository.findById(userId);
         if (user.isPresent()) {
             return user.get().getProfilePicture();
+        } else {
+            throw new RuntimeException();
+        }
+    }
+
+    @Override
+    public void deleteUserById(Long userId) {
+        Optional<User> user = userRepository.findById(userId);
+        if (user.isPresent()) {
+            userRepository.delete(user.get());
         } else {
             throw new RuntimeException();
         }
