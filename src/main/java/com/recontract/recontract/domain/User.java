@@ -1,5 +1,6 @@
 package com.recontract.recontract.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -31,6 +32,7 @@ public class User {
     private byte[] profilePicture;
 
     @OneToOne(mappedBy = "user")
+    @JsonIgnore
     private Search search;
 
     @ManyToMany
