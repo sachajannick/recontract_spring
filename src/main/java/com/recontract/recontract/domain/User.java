@@ -44,7 +44,7 @@ public class User {
     public User() {
     }
 
-    public User(String username, String email, String password, String hiringOrFreelancer, String fullName, String location, String headline) {
+    public User(String username, String email, String password, String hiringOrFreelancer, String fullName, String location, String headline, byte[] profilePicture) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -52,9 +52,7 @@ public class User {
         this.fullName = fullName;
         this.location = location;
         this.headline = headline;
-    }
-
-    public User(String username, String email, String encode, byte[] profilePicture) {
+        this.profilePicture = profilePicture;
     }
 
     public long getId() {

@@ -93,7 +93,8 @@ public class AuthorizationService {
                 signUpRequest.getHiringOrFreelancer(),
                 signUpRequest.getFullName(),
                 signUpRequest.getLocation(),
-                signUpRequest.getHeadline());
+                signUpRequest.getHeadline(),
+                signUpRequest.getProfilePicture());
 
         Set<String> strRoles = signUpRequest.getRole();
         Set<Role> roles = new HashSet<>();

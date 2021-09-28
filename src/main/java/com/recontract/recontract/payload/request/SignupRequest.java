@@ -27,6 +27,7 @@ public class SignupRequest {
     private String fullName;
     private String location;
     private String headline;
+    private byte[] profilePicture;
 
     public String getUsername() {
         return username;
@@ -91,5 +92,12 @@ public class SignupRequest {
     public void setHeadline(String headline) {
         this.headline = headline;
     }
-//    }
+
+    public byte[] getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(byte[] profilePicture) {
+        this.profilePicture = profilePicture;
+    }
 }
