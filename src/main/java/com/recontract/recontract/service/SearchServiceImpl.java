@@ -53,11 +53,11 @@ public class SearchServiceImpl implements SearchService {
     @Override
     public void updateSearch(String newFunctionTitle, int newAmount, Long searchId) {
         Optional<Search> search = searchRepository.findById(searchId);
-        try {
+        if (search.isPresent()) {
             search.get().setFunctionTitle(newFunctionTitle);
             search.get().setAmount(newAmount);
             searchRepository.save(search.get());
-        } catch (Exception e) {
+        } else {
             throw new BadRequestException();
         }
     }

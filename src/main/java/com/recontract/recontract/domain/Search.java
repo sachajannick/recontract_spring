@@ -36,6 +36,10 @@ public class Search {
         return searchId;
     }
 
+    public void setSearchId(long searchId) {
+        this.searchId = searchId;
+    }
+
     public String getFunctionTitle() {
         return functionTitle;
     }
