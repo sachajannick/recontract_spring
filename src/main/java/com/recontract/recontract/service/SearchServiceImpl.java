@@ -25,7 +25,7 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
-    public Search getSearchById(Long userId) {
+    public Search findSearchById(Long userId) {
         List<Search> searches = searchRepository.findAll();
         Search result = new Search();
 
@@ -51,11 +51,11 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
-    public void updateSearch(String functionTitle, int amount, Long searchId) {
+    public void updateSearch(String newFunctionTitle, int newAmount, Long searchId) {
         Optional<Search> search = searchRepository.findById(searchId);
         try {
-            search.get().setFunctionTitle(functionTitle);
-            search.get().setAmount(amount);
+            search.get().setFunctionTitle(newFunctionTitle);
+            search.get().setAmount(newAmount);
             searchRepository.save(search.get());
         } catch (Exception e) {
             throw new BadRequestException();

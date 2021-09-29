@@ -22,8 +22,8 @@ public class SearchController {
 
     @GetMapping(value = "/id/{id}")
     @PreAuthorize("hasRole('USER')")
-    public Search getSearchById(@PathVariable ("id") Long userId) {
-        return searchServiceImpl.getSearchById(userId);
+    public Search findSearchById(@PathVariable ("id") Long userId) {
+        return searchServiceImpl.findSearchById(userId);
     }
 
     @PostMapping(value = "/id/{id}")
@@ -36,7 +36,7 @@ public class SearchController {
     @PatchMapping(value="/id/{id}")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<Object> updateSearch(@PathVariable ("id") Long searchId, @RequestBody dtoSearch dto) {
-        searchServiceImpl.updateSearch(dto.functionTitle,dto.amount, searchId);
+        searchServiceImpl.updateSearch(dto.newFunctionTitle,dto.newAmount, searchId);
         return ResponseEntity.ok("Search updated");
     }
 
