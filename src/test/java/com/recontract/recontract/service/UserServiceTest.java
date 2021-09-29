@@ -42,6 +42,7 @@ public class UserServiceTest {
 
         // ACT
         User user = new User();
+        user.setId(userId);
 
         // ASSERT
         when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));

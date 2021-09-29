@@ -3,6 +3,7 @@ package com.recontract.recontract.service;
 import com.recontract.recontract.domain.Search;
 import com.recontract.recontract.domain.User;
 import com.recontract.recontract.exception.BadRequestException;
+import com.recontract.recontract.exception.RecordNotFoundException;
 import com.recontract.recontract.repository.SearchRepository;
 import com.recontract.recontract.repository.UserRepository;
 import org.junit.jupiter.api.Assertions;
@@ -36,21 +37,31 @@ public class SearchServiceTest {
     @Captor
     ArgumentCaptor<Search> searchCaptor;
 
+    // FAILS -- NEEDS REVISION
     @Test
     public void findSearchByIdSuccess() {
         // ARRANGE
-
+        Long userId = 0L;
+        Long searchId = 0L;
 
         // ACT
-
+        Search result = new Search();
+        List<Search> searches = new ArrayList<>();
+        result.setSearchId(searchId);
 
         // ASSERT
-
+        when(searchRepository.findAll()).thenReturn(searches);
+        Search result2 = searchService.findSearchById(userId);
+        Assertions.assertEquals(result, result2);
     }
 
+
+    // FAILS -- NEEDS REVISION
     @Test
     public void findSearchByIdThrowsException() {
+        Long userId = 0L;
 
+        Assertions.assertThrows(RecordNotFoundException.class, () -> searchService.findSearchById(userId));
     }
 
     @Test
@@ -73,6 +84,10 @@ public class SearchServiceTest {
 
     @Test
     public void createSearchThrowsException() {
+        Long userId = 0L;
+        Search search = new Search();
+
+        Assertions.assertThrows(RecordNotFoundException.class, () -> searchService.createSearch(search, userId));
 
     }
 
