@@ -56,14 +56,19 @@ public class SearchServiceTest {
     @Test
     public void createSearchSuccess() {
         // ARRANGE
+        User user = new User();
+        user.setId(0L);
 
+        Search search = new Search();
+        search.setSearchId(0L);
 
         // ACT
-
+        when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
+        searchService.createSearch(search, user.getId());
 
         // ASSERT
-
-
+        verify(searchRepository).save(searchCaptor.capture());
+        Assertions.assertEquals(searchCaptor.getValue().getUser().getId(), 0L);
     }
 
     @Test
