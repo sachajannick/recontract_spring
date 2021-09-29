@@ -42,10 +42,10 @@ public class UserServiceTest {
 
         // ACT
         User user = new User();
-        user.setId(userId);
+        user.setUserId(userId);
 
         // ASSERT
-        when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
+        when(userRepository.findById(user.getUserId())).thenReturn(Optional.of(user));
         User user2 = userService.findUserById(userId);
         Assertions.assertEquals(user, user2);
     }
@@ -82,7 +82,7 @@ public class UserServiceTest {
 
         // ACT
         Optional<User> user = Optional.of(new User());
-        user.get().setId(userId);
+        user.get().setUserId(userId);
         user.get().setUsername(username);
         user.get().setEmail(email);
         user.get().setPassword(password);
@@ -128,7 +128,7 @@ public class UserServiceTest {
         String username = "username";
         String password = "password";
         User user = new User();
-        user.setId(userId);
+        user.setUserId(userId);
         user.setUsername(username);
         user.setPassword(password);
 

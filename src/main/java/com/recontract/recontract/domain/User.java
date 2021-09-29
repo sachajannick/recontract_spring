@@ -20,7 +20,7 @@ public class User {
             strategy = "native"
     )
     @Column(columnDefinition = "serial")
-    private long id;
+    private long userId;
     private String username;
     private String email;
     private String password;
@@ -62,12 +62,12 @@ public class User {
         this.profilePicture = profilePicture;
     }
 
-    public long getId() {
-        return id;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setUserId(long id) {
+        this.userId = userId;
     }
 
     public String getUsername() {

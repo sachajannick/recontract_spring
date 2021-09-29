@@ -30,7 +30,7 @@ public class SearchServiceImpl implements SearchService {
         Search result = new Search();
 
         for (int i = 0; i < searches.size(); i++) {
-            if (searches.get(i).getUser().getId() == userId) {
+            if (searches.get(i).getUser().getUserId() == userId) {
                 result = searches.get(i);
             } else {
                 throw new RecordNotFoundException();
@@ -70,7 +70,7 @@ public class SearchServiceImpl implements SearchService {
 
         for (int i = 0; i < list.size(); i++) {
             search = list.get(i);
-            if (search.getUser().getId() == userId) {
+            if (search.getUser().getUserId() == userId) {
                 searchIsPresent = true;
             }
         }

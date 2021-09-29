@@ -42,12 +42,10 @@ public class SearchServiceTest {
     public void findSearchByIdSuccess() {
         // ARRANGE
         Long userId = 0L;
-        Long searchId = 0L;
 
         // ACT
-        Search result = new Search();
         List<Search> searches = new ArrayList<>();
-        result.setSearchId(searchId);
+        Search result = new Search();
 
         // ASSERT
         when(searchRepository.findAll()).thenReturn(searches);
@@ -68,18 +66,18 @@ public class SearchServiceTest {
     public void createSearchSuccess() {
         // ARRANGE
         User user = new User();
-        user.setId(0L);
+        user.setUserId(0L);
 
         Search search = new Search();
         search.setSearchId(0L);
 
         // ACT
-        when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
-        searchService.createSearch(search, user.getId());
+        when(userRepository.findById(user.getUserId())).thenReturn(Optional.of(user));
+        searchService.createSearch(search, user.getUserId());
 
         // ASSERT
         verify(searchRepository).save(searchCaptor.capture());
-        Assertions.assertEquals(searchCaptor.getValue().getUser().getId(), 0L);
+        Assertions.assertEquals(searchCaptor.getValue().getUser().getUserId(), 0L);
     }
 
     @Test
