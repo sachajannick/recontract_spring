@@ -23,9 +23,9 @@ public class UserController {
     }
 
     @GetMapping(value = "/id/{id}")
-    public ResponseEntity<Object> getUserById(@PathVariable("id") long userId) {
-        User user = userServiceImpl.getUserById(userId);
-        return ResponseEntity.ok(user);
+    @PreAuthorize("hasRole('USER')")
+    public User getUserById(@PathVariable("id") long userId) {
+        return userServiceImpl.getUserById(userId);
     }
 
     @PatchMapping(value="/profile-picture/id/{id}")
@@ -50,7 +50,7 @@ public class UserController {
     }
 
     @DeleteMapping(value = "/delete/id/{id}")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Object> deleteUserById(@PathVariable("id") long userId) {
         userServiceImpl.deleteUserById(userId);
         return ResponseEntity.ok("User successfully deleted with id: " + userId);
