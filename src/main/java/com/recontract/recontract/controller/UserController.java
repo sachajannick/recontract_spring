@@ -50,10 +50,10 @@ public class UserController {
     }
 
     @DeleteMapping(value = "/delete/id/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<Object> deleteUserById(@PathVariable("id") long userId) {
         userServiceImpl.deleteUserById(userId);
-        return ResponseEntity.ok("User successfully deleted with id: " + userId);
+        return ResponseEntity.ok("User deleted with id: " + userId);
     }
 
 //    @PatchMapping

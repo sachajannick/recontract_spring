@@ -9,6 +9,7 @@ import com.recontract.recontract.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.recontract.recontract.domain.User;
 import com.recontract.recontract.repository.UserRepository;
@@ -17,6 +18,13 @@ import com.recontract.recontract.repository.UserRepository;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+
+    private PasswordEncoder encoder;
+
+    @Autowired
+    public void setEncoder(PasswordEncoder passwordEncoder) {
+        this.encoder = passwordEncoder;
+    }
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {
@@ -61,7 +69,7 @@ public class UserServiceImpl implements UserService {
         if (user.isPresent()) {
             user.get().setUsername(username);
             user.get().setEmail(email);
-            user.get().setPassword(password);
+            user.get().setPassword(encoder.encode(password));
             user.get().setFullName(fullName);
             user.get().setLocation(location);
             user.get().setHeadline(headline);
