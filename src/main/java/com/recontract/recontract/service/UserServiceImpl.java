@@ -18,22 +18,16 @@ import com.recontract.recontract.repository.UserRepository;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-
-    private PasswordEncoder encoder;
-
-    @Autowired
-    public void setEncoder(PasswordEncoder passwordEncoder) {
-        this.encoder = passwordEncoder;
-    }
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserServiceImpl(UserRepository repository, PasswordEncoder passwordEncoder) {
+        this.userRepository = repository;
+        this.passwordEncoder = passwordEncoder;
     }
-
 
     @Override
-    public User getUserById(Long userId) {
+    public User findUserById(Long userId) {
         Optional<User> user = userRepository.findById(userId);
         if (user.isPresent()) {
             return user.get();
@@ -64,16 +58,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(String username, String email, String password, String fullName, String location, String headline, byte[] profilePicture, Long userId) {
+    public void updateUser(String newUsername, String newEmail, String newPassword, String newFullName, String newLocation, String newHeadline, byte[] newProfilePicture, Long userId) {
         Optional<User> user = userRepository.findById(userId);
         if (user.isPresent()) {
-            user.get().setUsername(username);
-            user.get().setEmail(email);
-            user.get().setPassword(encoder.encode(password));
-            user.get().setFullName(fullName);
-            user.get().setLocation(location);
-            user.get().setHeadline(headline);
-            user.get().setProfilePicture(profilePicture);
+            user.get().setUsername(newUsername);
+            user.get().setEmail(newEmail);
+            user.get().setPassword(passwordEncoder.encode(newPassword));
+            user.get().setFullName(newFullName);
+            user.get().setLocation(newLocation);
+            user.get().setHeadline(newHeadline);
+            user.get().setProfilePicture(newProfilePicture);
             userRepository.save(user.get());
         } else {
             throw new BadRequestException();
