@@ -29,12 +29,14 @@ public class SearchServiceImpl implements SearchService {
         List<Search> searches = searchRepository.findAll();
         Search result = new Search();
 
-        for (int i = 0; i < searches.size(); i++) {
-            if (searches.get(i).getUser().getUserId() == userId) {
-                result = searches.get(i);
-            } else {
-                throw new RecordNotFoundException();
+        try {
+            for (int i = 0; i < searches.size(); i++) {
+                if (searches.get(i).getUser().getUserId() == userId) {
+                    result = searches.get(i);
+                }
             }
+        } catch (Exception e) {
+            throw new RecordNotFoundException();
         }
         return result;
     }
@@ -68,11 +70,15 @@ public class SearchServiceImpl implements SearchService {
         List<Search> list = searchRepository.findAll();
         Search search = new Search();
 
-        for (int i = 0; i < list.size(); i++) {
-            search = list.get(i);
-            if (search.getUser().getUserId() == userId) {
-                searchIsPresent = true;
+        try {
+            for (int i = 0; i < list.size(); i++) {
+                search = list.get(i);
+                if (search.getUser().getUserId() == userId) {
+                    searchIsPresent = true;
+                }
             }
+        } catch (Exception e) {
+            throw new RecordNotFoundException();
         }
         return searchIsPresent;
     }

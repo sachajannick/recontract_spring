@@ -15,7 +15,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,27 +36,29 @@ public class SearchServiceTest {
     @Captor
     ArgumentCaptor<Search> searchCaptor;
 
-    // FAILS -- NEEDS REVISION
     @Test
     public void findSearchByIdSuccess() {
         // ARRANGE
-        Long userId = 0L;
+        User user = new User();
+        user.setUserId(1);
+
+        Search search = new Search();
+        search.setUser(user);
 
         // ACT
-        List<Search> searches = new ArrayList<>();
-        Search result = new Search();
+        when(searchRepository.findAll()).thenReturn(List.of(search));
+        Search result = searchService.findSearchById(user.getUserId());
 
         // ASSERT
-        when(searchRepository.findAll()).thenReturn(searches);
-        Search result2 = searchService.findSearchById(userId);
-        Assertions.assertEquals(result, result2);
+        Assertions.assertEquals(search, result);
     }
 
-
-    // FAILS -- NEEDS REVISION
     @Test
     public void findSearchByIdThrowsException() {
-        Long userId = 0L;
+        Long userId = 2L;
+        Search search = new Search();
+
+        when(searchRepository.findAll()).thenReturn(List.of(search));
 
         Assertions.assertThrows(RecordNotFoundException.class, () -> searchService.findSearchById(userId));
     }
@@ -86,7 +87,6 @@ public class SearchServiceTest {
         Search search = new Search();
 
         Assertions.assertThrows(RecordNotFoundException.class, () -> searchService.createSearch(search, userId));
-
     }
 
     @Test
@@ -119,5 +119,32 @@ public class SearchServiceTest {
         int newAmount = 85;
 
         Assertions.assertThrows(BadRequestException.class, () -> searchService.updateSearch(newFunctionTitle, newAmount, searchId));
+    }
+
+    @Test
+    public void checkSearchIsPresentOnUserSuccess() {
+        // ARRANGE
+        User user = new User();
+        user.setUserId(0L);
+
+        Search search = new Search();
+        search.setUser(user);
+
+        // ACT
+        when(searchRepository.findAll()).thenReturn(List.of(search));
+        boolean searchIsPresent = searchService.checkSearchIsPresentOnUser(user.getUserId());
+
+        // ASSERT
+        Assertions.assertTrue(searchIsPresent);
+    }
+
+    @Test
+    public void checkSearchIsPresentOnUserThrowsException() {
+        Long userId = 1L;
+        Search search = new Search();
+
+        when(searchRepository.findAll()).thenReturn(List.of(search));
+
+        Assertions.assertThrows(RecordNotFoundException. class, () -> searchService.checkSearchIsPresentOnUser(userId));
     }
 }
