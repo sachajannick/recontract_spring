@@ -1,5 +1,7 @@
 package com.recontract.recontract.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -21,6 +23,7 @@ public class Search {
     private int amount;
 
     @OneToOne
+    @JsonIgnore
     private User user;
 
     public Search() {

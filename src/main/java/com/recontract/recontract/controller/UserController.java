@@ -23,7 +23,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/id/{id}")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public User findUserById(@PathVariable("id") long userId) {
         return userServiceImpl.findUserById(userId);
     }
@@ -45,7 +45,7 @@ public class UserController {
     @PatchMapping(value = "/id/{id}")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<Object> updateUser(@PathVariable ("id") Long userId, @RequestBody dtoUser dto) {
-        userServiceImpl.updateUser(dto.newUsername, dto.newEmail, dto.newPassword, dto.newFullName, dto.newLocation, dto.newHeadline, dto.newProfilePicture, userId);
+        userServiceImpl.updateUser(dto.newUsername, dto.newEmail, dto.newPassword, dto.newFullName, dto.newLocation, dto.newHeadline, userId);
         return ResponseEntity.ok("User updated");
     }
 

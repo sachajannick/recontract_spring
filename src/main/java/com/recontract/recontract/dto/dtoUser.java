@@ -9,6 +9,4 @@ public class dtoUser {
     public String newFullName;
     public String newLocation;
     public String newHeadline;
-    @Lob
-    public byte[] newProfilePicture;
 }
