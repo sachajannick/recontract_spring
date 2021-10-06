@@ -1,7 +1,5 @@
 package com.recontract.recontract.dto;
 
-import javax.persistence.Lob;
-
 public class dtoUser {
     public String newUsername;
     public String newEmail;

@@ -1,6 +1,6 @@
 package com.recontract.recontract.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
@@ -9,21 +9,20 @@ import javax.persistence.*;
 public class Search {
 
     @Id
-    @SequenceGenerator(
-            name = "search_sequence",
-            sequenceName = "search_sequence",
-            allocationSize = 1
-    )
     @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "search_sequence"
+            strategy= GenerationType.AUTO,
+            generator="native"
     )
+    @GenericGenerator(
+            name = "native",
+            strategy = "native"
+    )
+//    @Column(columnDefinition = "serial")
     private long searchId;
     private String functionTitle;
     private int amount;
 
     @OneToOne
-    @JsonIgnore
     private User user;
 
     public Search() {
