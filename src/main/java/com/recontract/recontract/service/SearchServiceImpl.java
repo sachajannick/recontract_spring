@@ -2,6 +2,7 @@ package com.recontract.recontract.service;
 
 import com.recontract.recontract.domain.Search;
 import com.recontract.recontract.domain.User;
+import com.recontract.recontract.dto.dtoTest;
 import com.recontract.recontract.exception.BadRequestException;
 import com.recontract.recontract.exception.RecordNotFoundException;
 import com.recontract.recontract.repository.SearchRepository;
@@ -9,6 +10,8 @@ import com.recontract.recontract.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -92,5 +95,22 @@ public class SearchServiceImpl implements SearchService {
             throw new RecordNotFoundException();
         }
         return searchIsPresent;
+    }
+
+    @Override
+    public List<Long> returnMyDTO() {
+        List<Search> list = searchRepository.findAll();
+        List<Long> result = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+//            dtoTest dto = new dtoTest();
+            Search search = list.get(i);
+//            dto.setSearchId(search.getSearchId());
+//            dto.setAmount(search.getAmount());
+//            dto.setFunctionTitle(search.getFunctionTitle());
+//            dto.setUserId(search.getUser().getUserId());
+            result.add(search.getUser().getUserId());
+            result.add(search.getSearchId());
+        }
+        return result;
     }
 }

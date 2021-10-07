@@ -2,6 +2,7 @@ package com.recontract.recontract.controller;
 
 import com.recontract.recontract.domain.Search;
 import com.recontract.recontract.dto.dtoSearch;
+import com.recontract.recontract.dto.dtoTest;
 import com.recontract.recontract.service.SearchServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,14 @@ public class SearchController {
     public List<Search> findAllSearches() {
         return searchServiceImpl.findAllSearches();
     }
+
+
+    @GetMapping(value = "/id/all2")
+    @PreAuthorize("hasRole('USER')")
+    public List<Long> findAllSearches2() {
+        return searchServiceImpl.returnMyDTO();
+    }
+
 
     @GetMapping(value = "/id/{id}")
     @PreAuthorize("hasRole('USER')")
