@@ -1,5 +1,6 @@
 package com.recontract.recontract.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -18,11 +19,12 @@ public class Search {
             strategy = "native"
     )
 //    @Column(columnDefinition = "serial")
-    private long searchId;
+    private long id;
     private String functionTitle;
     private int amount;
 
     @OneToOne
+    @JsonIgnore
     private User user;
 
     public Search() {
@@ -35,11 +37,11 @@ public class Search {
     }
 
     public long getSearchId() {
-        return searchId;
+        return id;
     }
 
     public void setSearchId(long searchId) {
-        this.searchId = searchId;
+        this.id = searchId;
     }
 
     public String getFunctionTitle() {

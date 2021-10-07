@@ -24,6 +24,17 @@ public class SearchServiceImpl implements SearchService {
         this.userRepository = userRepository;
     }
 
+
+    @Override
+    public List<Search> findAllSearches() {
+        try {
+            List<Search> searches = searchRepository.findAll();
+            return searches;
+        } catch (Exception e) {
+            throw new BadRequestException();
+        }
+    }
+
     @Override
     public Search findSearchById(Long userId) {
         List<Search> searches = searchRepository.findAll();

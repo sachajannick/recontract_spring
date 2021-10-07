@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin
 @RequestMapping(path = "/api/searches")
@@ -18,6 +20,12 @@ public class SearchController {
     @Autowired
     public SearchController(SearchServiceImpl searchServiceImpl) {
         this.searchServiceImpl = searchServiceImpl;
+    }
+
+    @GetMapping(value = "/id/all")
+    @PreAuthorize("hasRole('USER')")
+    public List<Search> findAllSearches() {
+        return searchServiceImpl.findAllSearches();
     }
 
     @GetMapping(value = "/id/{id}")
