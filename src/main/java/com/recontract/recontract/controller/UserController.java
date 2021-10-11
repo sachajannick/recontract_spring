@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 
 @RestController
@@ -24,7 +23,6 @@ public class UserController {
 
     @GetMapping(value = "/id/{id}")
     @PreAuthorize("hasRole('USER')")
-//    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public User findUserById(@PathVariable("id") long userId) {
         return userServiceImpl.findUserById(userId);
     }
@@ -56,10 +54,4 @@ public class UserController {
         userServiceImpl.deleteUserById(userId);
         return ResponseEntity.ok("User deleted with id: " + userId);
     }
-
-//    @PatchMapping
-//    @PreAuthorize("hasRole('USER')")
-//    public ResponseEntity<Object> banaan() {
-//        return ResponseEntity.ok("LEUK");
-//    }
 }
