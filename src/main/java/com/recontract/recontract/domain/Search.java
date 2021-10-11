@@ -1,7 +1,6 @@
 package com.recontract.recontract.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 
 @Entity
