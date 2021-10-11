@@ -23,19 +23,11 @@ public class SearchController {
         this.searchServiceImpl = searchServiceImpl;
     }
 
-    @GetMapping(value = "/id/all")
+    @GetMapping(value = "/id/all2/id/{id}")
     @PreAuthorize("hasRole('USER')")
-    public List<Search> findAllSearches() {
-        return searchServiceImpl.findAllSearches();
+    public Long findSearchIdByUserId(@PathVariable ("id") Long userId) {
+        return searchServiceImpl.findSearchIdByUserId(userId);
     }
-
-
-    @GetMapping(value = "/id/all2")
-    @PreAuthorize("hasRole('USER')")
-    public List<Long> findAllSearches2() {
-        return searchServiceImpl.returnMyDTO();
-    }
-
 
     @GetMapping(value = "/id/{id}")
     @PreAuthorize("hasRole('USER')")

@@ -27,14 +27,20 @@ public class SearchServiceImpl implements SearchService {
         this.userRepository = userRepository;
     }
 
-
     @Override
-    public List<Search> findAllSearches() {
+    public Long findSearchIdByUserId(Long userId) {
+        List<Search> list = searchRepository.findAll();
+        Long result = 0L;
         try {
-            List<Search> searches = searchRepository.findAll();
-            return searches;
+            for (int i = 0; i < list.size(); i++) {
+                Search search = list.get(i);
+                if (search.getUser().getUserId() == userId) {
+                    result = search.getSearchId();
+                }
+            }
+            return result;
         } catch (Exception e) {
-            throw new BadRequestException();
+            throw new RecordNotFoundException();
         }
     }
 
@@ -95,22 +101,5 @@ public class SearchServiceImpl implements SearchService {
             throw new RecordNotFoundException();
         }
         return searchIsPresent;
-    }
-
-    @Override
-    public List<Long> returnMyDTO() {
-        List<Search> list = searchRepository.findAll();
-        List<Long> result = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++) {
-//            dtoTest dto = new dtoTest();
-            Search search = list.get(i);
-//            dto.setSearchId(search.getSearchId());
-//            dto.setAmount(search.getAmount());
-//            dto.setFunctionTitle(search.getFunctionTitle());
-//            dto.setUserId(search.getUser().getUserId());
-            result.add(search.getUser().getUserId());
-            result.add(search.getSearchId());
-        }
-        return result;
     }
 }
