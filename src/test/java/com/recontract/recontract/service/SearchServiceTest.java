@@ -14,7 +14,6 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -60,7 +59,8 @@ public class SearchServiceTest {
 
         when(searchRepository.findAll()).thenReturn(List.of(search));
 
-        Assertions.assertThrows(RecordNotFoundException.class, () -> searchService.findSearchIdByUserId(userId));
+        Assertions.assertThrows(RecordNotFoundException.class,
+                () -> searchService.findSearchIdByUserId(userId));
     }
 
 
@@ -88,7 +88,8 @@ public class SearchServiceTest {
 
         when(searchRepository.findAll()).thenReturn(List.of(search));
 
-        Assertions.assertThrows(RecordNotFoundException.class, () -> searchService.findSearchById(userId));
+        Assertions.assertThrows(RecordNotFoundException.class,
+                () -> searchService.findSearchById(userId));
     }
 
     @Test
@@ -114,7 +115,8 @@ public class SearchServiceTest {
         Long userId = 0L;
         Search search = new Search();
 
-        Assertions.assertThrows(RecordNotFoundException.class, () -> searchService.createSearch(search, userId));
+        Assertions.assertThrows(RecordNotFoundException.class,
+                () -> searchService.createSearch(search, userId));
     }
 
     @Test
@@ -146,7 +148,8 @@ public class SearchServiceTest {
         String newFunctionTitle = "Java Software Developer";
         int newAmount = 85;
 
-        Assertions.assertThrows(BadRequestException.class, () -> searchService.updateSearch(newFunctionTitle, newAmount, searchId));
+        Assertions.assertThrows(BadRequestException.class,
+                () -> searchService.updateSearch(newFunctionTitle, newAmount, searchId));
     }
 
     @Test
@@ -173,6 +176,7 @@ public class SearchServiceTest {
 
         when(searchRepository.findAll()).thenReturn(List.of(search));
 
-        Assertions.assertThrows(RecordNotFoundException. class, () -> searchService.checkSearchIsPresentOnUser(userId));
+        Assertions.assertThrows(RecordNotFoundException. class,
+                () -> searchService.checkSearchIsPresentOnUser(userId));
     }
 }

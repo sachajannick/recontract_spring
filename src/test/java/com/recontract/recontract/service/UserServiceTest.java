@@ -14,7 +14,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
 import java.util.Optional;
 
 import static org.mockito.Mockito.verify;
@@ -54,7 +53,8 @@ public class UserServiceTest {
     public void findUserByIdThrowsException() {
         Long userId = 0L;
 
-        Assertions.assertThrows(UserNotFoundException.class, () -> userService.findUserById(userId));
+        Assertions.assertThrows(UserNotFoundException.class,
+                () -> userService.findUserById(userId));
     }
 
     @Test
@@ -85,7 +85,13 @@ public class UserServiceTest {
         user.get().setHeadline(headline);
         when(userRepository.findById(userId)).thenReturn(user);
         when(passwordEncoder.encode(newPassword)).thenReturn(newPassword);
-        userService.updateUser(newUsername, newEmail, newPassword, newFullName, newLocation, newHeadline, userId);
+        userService.updateUser(newUsername,
+                newEmail,
+                newPassword,
+                newFullName,
+                newLocation,
+                newHeadline,
+                userId);
 
         // ASSERT
         verify(userRepository).save(userCaptor.capture());
@@ -107,7 +113,14 @@ public class UserServiceTest {
         String newLocation = "Laren";
         String newHeadline = "New Passionate Back-end Developer";
 
-        Assertions.assertThrows(BadRequestException.class, () -> userService.updateUser(newUsername, newEmail, newPassword, newFullName, newLocation, newHeadline, userId));
+        Assertions.assertThrows(BadRequestException.class,
+                () -> userService.updateUser(newUsername,
+                newEmail,
+                newPassword,
+                newFullName,
+                newLocation,
+                newHeadline,
+                userId));
     }
 
     @Test
@@ -134,6 +147,7 @@ public class UserServiceTest {
     public void deleteUserByIdThrowsException() {
         Long userId = 0L;
 
-        Assertions.assertThrows(RecordNotFoundException.class, () -> userService.deleteUserById(userId));
+        Assertions.assertThrows(RecordNotFoundException.class,
+                () -> userService.deleteUserById(userId));
     }
 }
