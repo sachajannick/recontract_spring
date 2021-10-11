@@ -43,10 +43,10 @@ public class UserServiceTest {
         // ACT
         User user = new User();
         user.setUserId(userId);
-
-        // ASSERT
         when(userRepository.findById(user.getUserId())).thenReturn(Optional.of(user));
         User user2 = userService.findUserById(userId);
+
+        // ASSERT
         Assertions.assertEquals(user, user2);
     }
 
@@ -83,11 +83,11 @@ public class UserServiceTest {
         user.get().setFullName(fullName);
         user.get().setLocation(location);
         user.get().setHeadline(headline);
-
-        // ASSERT
         when(userRepository.findById(userId)).thenReturn(user);
         when(passwordEncoder.encode(newPassword)).thenReturn(newPassword);
         userService.updateUser(newUsername, newEmail, newPassword, newFullName, newLocation, newHeadline, userId);
+
+        // ASSERT
         verify(userRepository).save(userCaptor.capture());
         Assertions.assertEquals(newUsername, userCaptor.getValue().getUsername());
         Assertions.assertEquals(newEmail, userCaptor.getValue().getEmail());
