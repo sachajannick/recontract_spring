@@ -41,5 +41,4 @@ public class AuthController {
     public ResponseEntity<MessageResponse> registerUser(@RequestBody SignupRequest signUpRequest) {
         return authorizationService.registerUser(signUpRequest);
     }
-
 }
