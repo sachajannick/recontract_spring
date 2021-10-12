@@ -24,6 +24,11 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
+    public List<Search> findAllSearches() {
+        return searchRepository.findAll();
+    }
+
+    @Override
     public Long findSearchIdByUserId(Long userId) {
         List<Search> list = searchRepository.findAll();
         Long result = 0L;

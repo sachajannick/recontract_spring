@@ -1,6 +1,7 @@
 package com.recontract.recontract.service;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 import com.recontract.recontract.exception.BadRequestException;
 import com.recontract.recontract.exception.RecordNotFoundException;
@@ -22,6 +23,12 @@ public class UserServiceImpl implements UserService {
     public UserServiceImpl(UserRepository repository, PasswordEncoder passwordEncoder) {
         this.userRepository = repository;
         this.passwordEncoder = passwordEncoder;
+    }
+
+
+    @Override
+    public List<User> findAllUsers() {
+        return userRepository.findAll();
     }
 
     @Override

@@ -36,6 +36,19 @@ public class SearchServiceTest {
     ArgumentCaptor<Search> searchCaptor;
 
     @Test
+    public void findAllSearchesSuccess() {
+        // ARRANGE
+        Search search = new Search();
+
+        // ACT
+        when(searchRepository.findAll()).thenReturn(List.of(search));
+        List<Search> searchList = searchService.findAllSearches();
+
+        // ASSERT
+        Assertions.assertEquals(1, searchList.size());
+    }
+
+    @Test
     public void findSearchIdByUserIdSuccess() {
         // ARRANGE
         User user = new User();
@@ -96,10 +109,10 @@ public class SearchServiceTest {
     public void createSearchSuccess() {
         // ARRANGE
         User user = new User();
-        user.setUserId(0L);
+        user.setUserId(1L);
 
         Search search = new Search();
-        search.setSearchId(0L);
+        search.setSearchId(1L);
 
         // ACT
         when(userRepository.findById(user.getUserId())).thenReturn(Optional.of(user));
@@ -107,12 +120,12 @@ public class SearchServiceTest {
 
         // ASSERT
         verify(searchRepository).save(searchCaptor.capture());
-        Assertions.assertEquals(0L, searchCaptor.getValue().getUser().getUserId());
+        Assertions.assertEquals(1L, searchCaptor.getValue().getUser().getUserId());
     }
 
     @Test
     public void createSearchThrowsException() {
-        Long userId = 0L;
+        Long userId = 2L;
         Search search = new Search();
 
         Assertions.assertThrows(RecordNotFoundException.class,
@@ -122,7 +135,7 @@ public class SearchServiceTest {
     @Test
     public void updateSearchSuccess() {
         // ARRANGE
-        Long searchId = 0L;
+        Long searchId = 1L;
         String functionTitle = "Back-end Software Developer";
         String newFunctionTitle = "Java Software Developer";
         int amount = 80;
@@ -144,7 +157,7 @@ public class SearchServiceTest {
 
     @Test
     public void updateSearchThrowsException() {
-        Long searchId = 0L;
+        Long searchId = 2L;
         String newFunctionTitle = "Java Software Developer";
         int newAmount = 85;
 
@@ -156,7 +169,7 @@ public class SearchServiceTest {
     public void checkSearchIsPresentOnUserSuccess() {
         // ARRANGE
         User user = new User();
-        user.setUserId(0L);
+        user.setUserId(1L);
 
         Search search = new Search();
         search.setUser(user);
@@ -171,7 +184,7 @@ public class SearchServiceTest {
 
     @Test
     public void checkSearchIsPresentOnUserThrowsException() {
-        Long userId = 1L;
+        Long userId = 2L;
         Search search = new Search();
 
         when(searchRepository.findAll()).thenReturn(List.of(search));

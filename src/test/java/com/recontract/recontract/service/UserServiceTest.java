@@ -14,6 +14,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.Mockito.verify;
@@ -35,12 +37,25 @@ public class UserServiceTest {
     ArgumentCaptor<User> userCaptor;
 
     @Test
-    public void findUserByIdSuccess() {
+    public void findAllUsersSuccess() {
         // ARRANGE
-        Long userId = 0L;
+        User user = new User();
 
         // ACT
+        when(userRepository.findAll()).thenReturn(List.of(user));
+        List<User> userList = userService.findAllUsers();
+
+        // ASSERT
+        Assertions.assertEquals(1, userList.size());
+    }
+
+    @Test
+    public void findUserByIdSuccess() {
+        // ARRANGE
+        Long userId = 1L;
         User user = new User();
+
+        // ACT
         user.setUserId(userId);
         when(userRepository.findById(user.getUserId())).thenReturn(Optional.of(user));
         User user2 = userService.findUserById(userId);
@@ -51,7 +66,7 @@ public class UserServiceTest {
 
     @Test
     public void findUserByIdThrowsException() {
-        Long userId = 0L;
+        Long userId = 2L;
 
         Assertions.assertThrows(UserNotFoundException.class,
                 () -> userService.findUserById(userId));
@@ -60,7 +75,7 @@ public class UserServiceTest {
     @Test
     public void updateUserSuccess() {
         // ARRANGE
-        Long userId = 0L;
+        Long userId = 1L;
         String username = "Username";
         String newUsername = "newUsername";
         String email = "email@email.com";
@@ -105,7 +120,7 @@ public class UserServiceTest {
 
     @Test
     public void updateUserThrowsException() {
-        Long userId = 0L;
+        Long userId = 2L;
         String newUsername = "newUsername";
         String newEmail = "newEmail@email.com";
         String newPassword = "newPassword";
@@ -126,7 +141,7 @@ public class UserServiceTest {
     @Test
     public void deleteUserByIdSuccess() {
         // ARRANGE
-        Long userId = 0L;
+        Long userId = 1L;
         String username = "username";
         String password = "password";
         User user = new User();
@@ -145,7 +160,7 @@ public class UserServiceTest {
 
     @Test
     public void deleteUserByIdThrowsException() {
-        Long userId = 0L;
+        Long userId = 2L;
 
         Assertions.assertThrows(RecordNotFoundException.class,
                 () -> userService.deleteUserById(userId));
