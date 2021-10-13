@@ -14,8 +14,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.Mockito.verify;
@@ -35,19 +33,6 @@ public class UserServiceTest {
 
     @Captor
     ArgumentCaptor<User> userCaptor;
-
-    @Test
-    public void findAllUsersSuccess() {
-        // ARRANGE
-        User user = new User();
-
-        // ACT
-        when(userRepository.findAll()).thenReturn(List.of(user));
-        List<User> userList = userService.findAllUsers();
-
-        // ASSERT
-        Assertions.assertEquals(1, userList.size());
-    }
 
     @Test
     public void findUserByIdSuccess() {
@@ -78,44 +63,24 @@ public class UserServiceTest {
         Long userId = 1L;
         String username = "Username";
         String newUsername = "newUsername";
-        String email = "email@email.com";
-        String newEmail = "newEmail@email.com";
         String password = "password";
         String newPassword = "newPassword";
-        String fullName = "First Last";
-        String newFullName = "New First Last";
-        String location = "Utrecht";
-        String newLocation = "Laren";
-        String headline = "Passionate Back-end Developer";
-        String newHeadline = "New Passionate Back-end Developer";
 
         // ACT
         Optional<User> user = Optional.of(new User());
         user.get().setUserId(userId);
         user.get().setUsername(username);
-        user.get().setEmail(email);
         user.get().setPassword(password);
-        user.get().setFullName(fullName);
-        user.get().setLocation(location);
-        user.get().setHeadline(headline);
         when(userRepository.findById(userId)).thenReturn(user);
         when(passwordEncoder.encode(newPassword)).thenReturn(newPassword);
         userService.updateUser(newUsername,
-                newEmail,
                 newPassword,
-                newFullName,
-                newLocation,
-                newHeadline,
                 userId);
 
         // ASSERT
         verify(userRepository).save(userCaptor.capture());
         Assertions.assertEquals(newUsername, userCaptor.getValue().getUsername());
-        Assertions.assertEquals(newEmail, userCaptor.getValue().getEmail());
         Assertions.assertEquals(newPassword, userCaptor.getValue().getPassword());
-        Assertions.assertEquals(newFullName, userCaptor.getValue().getFullName());
-        Assertions.assertEquals(newLocation, userCaptor.getValue().getLocation());
-        Assertions.assertEquals(newHeadline, userCaptor.getValue().getHeadline());
     }
 
     @Test
@@ -125,16 +90,10 @@ public class UserServiceTest {
         String newEmail = "newEmail@email.com";
         String newPassword = "newPassword";
         String newFullName = "New First Last";
-        String newLocation = "Laren";
-        String newHeadline = "New Passionate Back-end Developer";
 
         Assertions.assertThrows(BadRequestException.class,
                 () -> userService.updateUser(newUsername,
-                newEmail,
                 newPassword,
-                newFullName,
-                newLocation,
-                newHeadline,
                 userId));
     }
 

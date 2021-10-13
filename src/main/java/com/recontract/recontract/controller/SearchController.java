@@ -2,12 +2,16 @@ package com.recontract.recontract.controller;
 
 import com.recontract.recontract.domain.Search;
 import com.recontract.recontract.dto.dtoSearch;
+import com.recontract.recontract.dto.dtoNewSearch;
 import com.recontract.recontract.service.SearchServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -22,10 +26,10 @@ public class SearchController {
         this.searchServiceImpl = searchServiceImpl;
     }
 
-    @GetMapping(value = "/all")
+    @GetMapping(value = "/freelancer")
     @PreAuthorize("hasRole('USER')")
-    public List<Search> findAllSearches() {
-        return searchServiceImpl.findAllSearches();
+    public List<dtoSearch> findFreelancers() {
+        return searchServiceImpl.findSearchFreelancer();
     }
 
     @GetMapping(value = "/long/id/{id}")
@@ -49,8 +53,14 @@ public class SearchController {
 
     @PatchMapping(value="/id/{id}")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<Object> updateSearch(@PathVariable ("id") Long searchId, @RequestBody dtoSearch dto) {
-        searchServiceImpl.updateSearch(dto.newFunctionTitle,dto.newAmount, searchId);
+    public ResponseEntity<Object> updateSearch(@PathVariable ("id") Long searchId, @RequestBody dtoNewSearch dto) {
+        searchServiceImpl.updateSearch(searchId,
+                dto.functionTitle,
+                dto.amount,
+                dto.location,
+                dto.headline,
+                dto.email,
+                dto.fullName);
         return ResponseEntity.ok("Search updated");
     }
 
@@ -58,5 +68,19 @@ public class SearchController {
     @PreAuthorize("hasRole('USER')")
     public boolean checkSearchIsPresentOnUser(@PathVariable ("id") Long userId) {
         return searchServiceImpl.checkSearchIsPresentOnUser(userId);
+    }
+
+    @PatchMapping(value="/profile-picture/id/{id}")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<Object> uploadProfilePicture(@PathVariable ("id") long searchId, @RequestParam("file") MultipartFile file) throws IOException {
+        searchServiceImpl.uploadProfilePicture(searchId, file);
+        return ResponseEntity.ok("Profile picture uploaded");
+    }
+
+    @GetMapping(value = "/profile-picture/id/{id}")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<byte[]> getProfilePicture(@PathVariable ("id") long searchId) {
+        var picture = searchServiceImpl.getProfilePicture(searchId);
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"picture\"").body(picture);
     }
 }

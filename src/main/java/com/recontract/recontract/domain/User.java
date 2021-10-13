@@ -21,14 +21,8 @@ public class User {
     @Column(columnDefinition = "serial")
     private long id;
     private String username;
-    private String email;
     private String password;
     private String hiringOrFreelancer;
-    private String fullName;
-    private String location;
-    private String headline;
-    @Lob
-    private byte[] profilePicture;
 
     @OneToOne(mappedBy = "user")
     @JsonIgnore
@@ -44,21 +38,11 @@ public class User {
     }
 
     public User(String username,
-                String email,
                 String password,
-                String hiringOrFreelancer,
-                String fullName,
-                String location,
-                String headline,
-                byte[] profilePicture) {
+                String hiringOrFreelancer) {
         this.username = username;
-        this.email = email;
         this.password = password;
         this.hiringOrFreelancer = hiringOrFreelancer;
-        this.fullName = fullName;
-        this.location = location;
-        this.headline = headline;
-        this.profilePicture = profilePicture;
     }
 
     public long getUserId() {
@@ -77,14 +61,6 @@ public class User {
         this.username = username;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -99,38 +75,6 @@ public class User {
 
     public void setHiringOrFreelancer(String hiringOrFreelancer) {
         this.hiringOrFreelancer = hiringOrFreelancer;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getHeadline() {
-        return headline;
-    }
-
-    public void setHeadline(String headline) {
-        this.headline = headline;
-    }
-
-    public byte[] getProfilePicture() {
-        return profilePicture;
-    }
-
-    public void setProfilePicture(byte[] profilePicture) {
-        this.profilePicture = profilePicture;
     }
 
     public Set<Role> getRoles() {

@@ -15,7 +15,6 @@ public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 1L;
     private final Long id;
     private final String username;
-    private final String email;
 
     @JsonIgnore
     private final String password;
@@ -24,12 +23,10 @@ public class UserDetailsImpl implements UserDetails {
 
     public UserDetailsImpl(Long id,
                            String username,
-                           String email,
                            String password,
                            Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
-        this.email = email;
         this.password = password;
         this.authorities = authorities;
     }
@@ -42,17 +39,12 @@ public class UserDetailsImpl implements UserDetails {
         return new UserDetailsImpl(
                 user.getUserId(),
                 user.getUsername(),
-                user.getEmail(),
                 user.getPassword(),
                 authorities);
     }
 
     public Long getId() {
         return id;
-    }
-
-    public String getEmail() {
-        return email;
     }
 
     @Override
@@ -104,6 +96,6 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, email, password, authorities);
+        return Objects.hash(id, username, password, authorities);
     }
 }

@@ -2,12 +2,17 @@ package com.recontract.recontract.service;
 
 import com.recontract.recontract.domain.Search;
 import com.recontract.recontract.domain.User;
+import com.recontract.recontract.dto.dtoSearch;
 import com.recontract.recontract.exception.BadRequestException;
 import com.recontract.recontract.exception.RecordNotFoundException;
 import com.recontract.recontract.repository.SearchRepository;
 import com.recontract.recontract.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,9 +28,37 @@ public class SearchServiceImpl implements SearchService {
         this.userRepository = userRepository;
     }
 
+
     @Override
-    public List<Search> findAllSearches() {
-        return searchRepository.findAll();
+    public List<dtoSearch> findSearchFreelancer() {
+        List<Search> list = searchRepository.findAll();
+        List<dtoSearch> listFreelancers = new ArrayList<>();
+        try {
+            for (int i = 0; i < list.size(); i++) {
+                Search search = list.get(i);
+                if (search.getUser().getHiringOrFreelancer().equals("freelancer")) {
+                    dtoSearch dto = new dtoSearch();
+                    dto.setUserId(search.getUser().getUserId());
+                    dto.setFunctionTitle(search.getFunctionTitle());
+                    dto.setAmount(search.getAmount());
+                    dto.setLocation(search.getLocation());
+                    dto.setHeadline(search.getHeadline());
+                    dto.setEmail(search.getEmail());
+                    dto.setFullName(search.getFullName());
+                    dto.setProfilePicture(search.getProfilePicture());
+                    listFreelancers.add(dto);
+                }
+            }
+
+            return listFreelancers;
+        } catch (Exception e) {
+            throw new RecordNotFoundException();
+        }
+    }
+
+    @Override
+    public List<Search> findSearchHiring() {
+        return null;
     }
 
     @Override
@@ -78,12 +111,22 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
-    public void updateSearch(String newFunctionTitle, int newAmount, Long searchId) {
+    public void updateSearch(Long searchId,
+                             String functionTitle,
+                             int amount,
+                             String location,
+                             String headline,
+                             String email,
+                             String fullName) {
         Optional<Search> search = searchRepository.findById(searchId);
 
         if (search.isPresent()) {
-            search.get().setFunctionTitle(newFunctionTitle);
-            search.get().setAmount(newAmount);
+            search.get().setFunctionTitle(functionTitle);
+            search.get().setAmount(amount);
+            search.get().setLocation(location);
+            search.get().setHeadline(headline);
+            search.get().setEmail(email);
+            search.get().setFullName(fullName);
             searchRepository.save(search.get());
         } else {
             throw new BadRequestException();
@@ -108,5 +151,28 @@ public class SearchServiceImpl implements SearchService {
         }
 
         return searchIsPresent;
+    }
+
+    @Override
+    public void uploadProfilePicture(Long searchId, MultipartFile file) throws IOException {
+        Optional<Search> search = searchRepository.findById(searchId);
+
+        if (search.isPresent()) {
+            search.get().setProfilePicture(file.getBytes());
+            searchRepository.save(search.get());
+        } else {
+            throw new BadRequestException();
+        }
+    }
+
+    @Override
+    public byte[] getProfilePicture(Long searchId) {
+        Optional<Search> search = searchRepository.findById(searchId);
+
+        if (search.isPresent()) {
+            return search.get().getProfilePicture();
+        } else {
+            throw new RecordNotFoundException();
+        }
     }
 }

@@ -36,19 +36,6 @@ public class SearchServiceTest {
     ArgumentCaptor<Search> searchCaptor;
 
     @Test
-    public void findAllSearchesSuccess() {
-        // ARRANGE
-        Search search = new Search();
-
-        // ACT
-        when(searchRepository.findAll()).thenReturn(List.of(search));
-        List<Search> searchList = searchService.findAllSearches();
-
-        // ASSERT
-        Assertions.assertEquals(1, searchList.size());
-    }
-
-    @Test
     public void findSearchIdByUserIdSuccess() {
         // ARRANGE
         User user = new User();
@@ -136,18 +123,30 @@ public class SearchServiceTest {
     public void updateSearchSuccess() {
         // ARRANGE
         Long searchId = 1L;
-        String functionTitle = "Back-end Software Developer";
-        String newFunctionTitle = "Java Software Developer";
         int amount = 80;
         int newAmount = 85;
+        String functionTitle = "Back-end Software Developer";
+        String newFunctionTitle = "Java Software Developer";
+        String location = "Utrecht";
+        String newLocation = "Laren";
+        String headline = "Passionate Back-end Developer";
+        String newHeadline = "Passionate Java Developer";
+        String email = "test@test.com";
+        String newEmail = "newTest@test.com";
+        String fullName = "User Test";
+        String newFullName = "New Test";
 
         // ACT
         Optional<Search> search = Optional.of(new Search());
         search.get().setSearchId(searchId);
         search.get().setFunctionTitle(functionTitle);
         search.get().setAmount(amount);
+        search.get().setLocation(location);
+        search.get().setHeadline(headline);
+        search.get().setEmail(email);
+        search.get().setFullName(fullName);
         when (searchRepository.findById(searchId)).thenReturn(search);
-        searchService.updateSearch(newFunctionTitle, newAmount, searchId);
+        searchService.updateSearch(searchId, newFunctionTitle, newAmount, newLocation, newHeadline, newEmail, newFullName);
 
         // ASSERT
         verify(searchRepository).save(searchCaptor.capture());
@@ -160,9 +159,13 @@ public class SearchServiceTest {
         Long searchId = 2L;
         String newFunctionTitle = "Java Software Developer";
         int newAmount = 85;
+        String newLocation = "Laren";
+        String newHeadline = "New Passionate Back-end Developer";
+        String newEmail = "newTest@test.com";
+        String newFullName = "New Test";
 
         Assertions.assertThrows(BadRequestException.class,
-                () -> searchService.updateSearch(newFunctionTitle, newAmount, searchId));
+                () -> searchService.updateSearch(searchId, newFunctionTitle, newAmount, newLocation, newHeadline, newEmail, newFullName));
     }
 
     @Test

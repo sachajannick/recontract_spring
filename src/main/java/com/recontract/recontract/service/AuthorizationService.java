@@ -69,20 +69,9 @@ public class AuthorizationService {
                     .body(new MessageResponse("Error: Username is already taken!"));
         }
 
-        if (Boolean.TRUE.equals(userRepository.existsByEmail(signUpRequest.getEmail()))) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: Email is already in use!"));
-        }
-
         User user = new User(signUpRequest.getUsername(),
-                signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()),
-                signUpRequest.getHiringOrFreelancer(),
-                signUpRequest.getFullName(),
-                signUpRequest.getLocation(),
-                signUpRequest.getHeadline(),
-                signUpRequest.getProfilePicture());
+                signUpRequest.getHiringOrFreelancer());
 
         Set<String> strRoles = signUpRequest.getRole();
         Set<Role> roles = new HashSet<>();
@@ -137,7 +126,6 @@ public class AuthorizationService {
         return ResponseEntity.ok(new JwtResponse(jwt,
                 userDetails.getId(),
                 userDetails.getUsername(),
-                userDetails.getEmail(),
                 roles));
     }
 }
