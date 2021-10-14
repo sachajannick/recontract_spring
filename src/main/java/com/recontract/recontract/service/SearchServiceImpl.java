@@ -38,6 +38,7 @@ public class SearchServiceImpl implements SearchService {
                 Search search = list.get(i);
                 if (search.getUser().getHiringOrFreelancer().equals("freelancer")) {
                     dtoSearch dto = new dtoSearch();
+                    dto.setSearchId(search.getSearchId());
                     dto.setUserId(search.getUser().getUserId());
                     dto.setFunctionTitle(search.getFunctionTitle());
                     dto.setAmount(search.getAmount());

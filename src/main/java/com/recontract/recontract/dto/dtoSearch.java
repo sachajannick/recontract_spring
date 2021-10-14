@@ -4,6 +4,7 @@ import javax.persistence.Lob;
 
 public class dtoSearch {
 
+    public Long searchId;
     public Long userId;
     public String functionTitle;
     public int amount;
@@ -13,6 +14,14 @@ public class dtoSearch {
     public String fullName;
     @Lob
     public byte[] profilePicture;
+
+    public Long getSearchId() {
+        return searchId;
+    }
+
+    public void setSearchId(Long searchId) {
+        this.searchId = searchId;
+    }
 
     public Long getUserId() {
         return userId;
