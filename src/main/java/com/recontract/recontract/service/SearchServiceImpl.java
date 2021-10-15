@@ -10,7 +10,6 @@ import com.recontract.recontract.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +31,8 @@ public class SearchServiceImpl implements SearchService {
     @Override
     public List<dtoSearch> findSearchFreelancer() {
         List<Search> list = searchRepository.findAll();
-        List<dtoSearch> listFreelancers = new ArrayList<>();
+        List<dtoSearch> listFreelancer = new ArrayList<>();
+
         try {
             for (int i = 0; i < list.size(); i++) {
                 Search search = list.get(i);
@@ -47,19 +47,43 @@ public class SearchServiceImpl implements SearchService {
                     dto.setEmail(search.getEmail());
                     dto.setFullName(search.getFullName());
                     dto.setProfilePicture(search.getProfilePicture());
-                    listFreelancers.add(dto);
+                    listFreelancer.add(dto);
                 }
             }
 
-            return listFreelancers;
+            return listFreelancer;
         } catch (Exception e) {
             throw new RecordNotFoundException();
         }
     }
 
     @Override
-    public List<Search> findSearchHiring() {
-        return null;
+    public List<dtoSearch> findSearchHiring() {
+        List<Search> list = searchRepository.findAll();
+        List<dtoSearch> listHiring = new ArrayList<>();
+
+        try {
+            for (int i = 0; i < list.size(); i++) {
+                Search search = list.get(i);
+                if (search.getUser().getHiringOrFreelancer().equals("freelancer")) {
+                    dtoSearch dto = new dtoSearch();
+                    dto.setSearchId(search.getSearchId());
+                    dto.setUserId(search.getUser().getUserId());
+                    dto.setFunctionTitle(search.getFunctionTitle());
+                    dto.setAmount(search.getAmount());
+                    dto.setLocation(search.getLocation());
+                    dto.setHeadline(search.getHeadline());
+                    dto.setEmail(search.getEmail());
+                    dto.setFullName(search.getFullName());
+                    dto.setProfilePicture(search.getProfilePicture());
+                    listHiring.add(dto);
+                }
+            }
+
+            return listHiring;
+        } catch (Exception e) {
+            throw new RecordNotFoundException();
+        }
     }
 
     @Override
@@ -100,7 +124,8 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
-    public void createSearch(Search search, Long userId) {
+    public void createSearch(Search search,
+                             Long userId) {
         Optional<User> user = userRepository.findById(userId);
 
         try {

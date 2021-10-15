@@ -28,8 +28,14 @@ public class SearchController {
 
     @GetMapping(value = "/freelancer")
     @PreAuthorize("hasRole('USER')")
-    public List<dtoSearch> findFreelancers() {
+    public List<dtoSearch> findSearchFreelancers() {
         return searchServiceImpl.findSearchFreelancer();
+    }
+
+    @GetMapping(value = "/hiring")
+    @PreAuthorize("hasRole('USER')")
+    public List<dtoSearch> findSearchHiring() {
+        return searchServiceImpl.findSearchHiring();
     }
 
     @GetMapping(value = "/long/id/{id}")
