@@ -14,6 +14,8 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.mock.web.MockMultipartFile;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -145,7 +147,7 @@ public class SearchServiceTest {
         search.get().setHeadline(headline);
         search.get().setEmail(email);
         search.get().setFullName(fullName);
-        when (searchRepository.findById(searchId)).thenReturn(search);
+        when(searchRepository.findById(searchId)).thenReturn(search);
         searchService.updateSearch(searchId, newFunctionTitle, newAmount, newLocation, newHeadline, newEmail, newFullName);
 
         // ASSERT
@@ -194,5 +196,66 @@ public class SearchServiceTest {
 
         Assertions.assertThrows(RecordNotFoundException. class,
                 () -> searchService.checkSearchIsPresentOnUser(userId));
+    }
+
+    @Test
+    public void uploadProfilePictureSuccess() throws IOException {
+        // ARRANGE
+        Search search = new Search();
+        Long searchId = 1L;
+
+        byte[] profilePicture = { (byte)0xba, (byte)0x8a, 0x0d,
+                0x45, 0x25, (byte)0xad, (byte)0xd0, 0x13, (byte)0x98, (byte)0xa8, 0x08, 0x00,
+                0x36, 0x1b, 0x11, 0x03 };
+        MockMultipartFile file = new MockMultipartFile("file", profilePicture);
+
+        // ACT
+        search.setProfilePicture(profilePicture);
+        when(searchRepository.findById(searchId)).thenReturn(Optional.of(search));
+        searchService.uploadProfilePicture(searchId, file);
+
+        // ASSERT
+        verify(searchRepository).save(searchCaptor.capture());
+        Assertions.assertArrayEquals(profilePicture, searchCaptor.getValue().getProfilePicture());
+    }
+
+    @Test
+    public void uploadProfilePictureThrowsException() {
+        Long searchId = 2L;
+
+        byte[] profilePicture = { (byte)0xba, (byte)0x8a, 0x0d,
+                0x45, 0x25, (byte)0xad, (byte)0xd0, 0x13, (byte)0x98, (byte)0xa8, 0x08, 0x00,
+                0x36, 0x1b, 0x11, 0x03 };
+        MockMultipartFile file = new MockMultipartFile("file", profilePicture);
+
+        Assertions.assertThrows(BadRequestException.class,
+                () -> searchService.uploadProfilePicture(searchId, file));
+    }
+
+    @Test
+    public void getProfilePictureSuccess() {
+        // ARRANGE
+        Search search = new Search();
+        Long searchId = 1L;
+
+        byte[] profilePicture = { (byte)0xba, (byte)0x8a, 0x0d,
+                0x45, 0x25, (byte)0xad, (byte)0xd0, 0x12, (byte)0x98, (byte)0xa8, 0x08, 0x00,
+                0x36, 0x1b, 0x11, 0x03 };
+
+        // ACT
+        search.setProfilePicture(profilePicture);
+        when(searchRepository.findById(searchId)).thenReturn(Optional.of(search));
+        byte[] result = searchService.getProfilePicture(searchId);
+
+        // ASSERT
+        Assertions.assertArrayEquals(profilePicture, result);
+    }
+
+    @Test
+    public void getProfilePictureThrowsException() {
+        Long searchId = 2L;
+
+        Assertions.assertThrows(RecordNotFoundException.class,
+                () -> searchService.getProfilePicture(searchId));
     }
 }
