@@ -3,6 +3,7 @@ package com.recontract.recontract.controller;
 import com.recontract.recontract.domain.Search;
 import com.recontract.recontract.dto.dtoSearch;
 import com.recontract.recontract.dto.dtoNewSearch;
+import com.recontract.recontract.dto.dtoSearchHiring;
 import com.recontract.recontract.service.SearchServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -34,7 +35,7 @@ public class SearchController {
 
     @GetMapping(value = "/hiring")
     @PreAuthorize("hasRole('USER')")
-    public List<dtoSearch> findSearchHiring() {
+    public List<dtoSearchHiring> findSearchHiring() {
         return searchServiceImpl.findSearchHiring();
     }
 

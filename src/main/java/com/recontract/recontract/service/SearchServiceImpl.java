@@ -3,6 +3,7 @@ package com.recontract.recontract.service;
 import com.recontract.recontract.domain.Search;
 import com.recontract.recontract.domain.User;
 import com.recontract.recontract.dto.dtoSearch;
+import com.recontract.recontract.dto.dtoSearchHiring;
 import com.recontract.recontract.exception.BadRequestException;
 import com.recontract.recontract.exception.RecordNotFoundException;
 import com.recontract.recontract.repository.SearchRepository;
@@ -58,15 +59,15 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
-    public List<dtoSearch> findSearchHiring() {
+    public List<dtoSearchHiring> findSearchHiring() {
         List<Search> list = searchRepository.findAll();
-        List<dtoSearch> listHiring = new ArrayList<>();
+        List<dtoSearchHiring> listHiring = new ArrayList<>();
 
         try {
             for (int i = 0; i < list.size(); i++) {
                 Search search = list.get(i);
-                if (search.getUser().getHiringOrFreelancer().equals("freelancer")) {
-                    dtoSearch dto = new dtoSearch();
+                if (search.getUser().getHiringOrFreelancer().equals("hiring")) {
+                    dtoSearchHiring dto = new dtoSearchHiring();
                     dto.setSearchId(search.getSearchId());
                     dto.setUserId(search.getUser().getUserId());
                     dto.setFunctionTitle(search.getFunctionTitle());

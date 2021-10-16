@@ -2,6 +2,7 @@ package com.recontract.recontract.service;
 
 import com.recontract.recontract.domain.Search;
 import com.recontract.recontract.dto.dtoSearch;
+import com.recontract.recontract.dto.dtoSearchHiring;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
 public interface SearchService {
 
     List<dtoSearch> findSearchFreelancer();
-    List<dtoSearch> findSearchHiring();
+    List<dtoSearchHiring> findSearchHiring();
     Long findSearchIdByUserId(Long userId);
     Search findSearchById(Long userId);
     void createSearch(Search search, Long userId);
