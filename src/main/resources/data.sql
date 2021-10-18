@@ -1,9 +1,6 @@
 INSERT INTO role(name) VALUES('ROLE_USER');
 INSERT INTO role(name) VALUES('ROLE_ADMIN');
 
--- ADMIN
-
-
 INSERT INTO app_user(id, hiring_or_freelancer, password, username) VALUES(1, 'freelancer', '$2a$12$T8/vGZViB54paEs663CaJ.Z0wm0/It5mkCizAtF/tmtKVMBIo9GxC', 'sarah123');
 INSERT INTO app_user(id, hiring_or_freelancer, password, username) VALUES(2, 'freelancer', '$2a$12$lXffb6LtnmwYIzI9m22Ctegg4JMoEt8UZGGrJBLjX7u0xXGIb.Lde', 'dave123');
 INSERT INTO app_user(id, hiring_or_freelancer, password, username) VALUES(3, 'hiring', '$2a$12$PjKIYgiDT/mSviPPFyQGFedwEVvyMXtNZe7o9Fc71GarH4aJBCeR2', 'sam123');
