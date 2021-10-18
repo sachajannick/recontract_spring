@@ -5,11 +5,13 @@ INSERT INTO app_user(id, hiring_or_freelancer, password, username) VALUES(1, 'fr
 INSERT INTO app_user(id, hiring_or_freelancer, password, username) VALUES(2, 'freelancer', '$2a$12$lXffb6LtnmwYIzI9m22Ctegg4JMoEt8UZGGrJBLjX7u0xXGIb.Lde', 'dave123');
 INSERT INTO app_user(id, hiring_or_freelancer, password, username) VALUES(3, 'hiring', '$2a$12$PjKIYgiDT/mSviPPFyQGFedwEVvyMXtNZe7o9Fc71GarH4aJBCeR2', 'sam123');
 INSERT INTO app_user(id, hiring_or_freelancer, password, username) VALUES(4, 'hiring', '$2a$12$0RVf21UMDDOgsTf1Me1AcOD2dPO8Nfo7cSIUQLDuvJhr5ssGCfq12', 'christina123');
+INSERT INTO app_user(id, hiring_or_freelancer, password, username) VALUES(5, null, '$2a$12$QPfb.YuR.WTWcQxk24rtlueS9bs/DQ6KtVnb2iu54VQHkea1hOaOK', 'admin');
 
 INSERT INTO user_role(user_id, role_id) VALUES(1, 1);
 INSERT INTO user_role(user_id, role_id) VALUES(2, 1);
 INSERT INTO user_role(user_id, role_id) VALUES(3, 1);
 INSERT INTO user_role(user_id, role_id) VALUES(4, 1);
+INSERT INTO user_role(user_id, role_id) VALUES(5, 2);
 
 INSERT INTO searches(id, amount, email, full_name, function_title, headline, location, profile_picture, user_id) VALUES(1, '85', 's.fadim@gmail.com', 'Sarah Fadim', 'Medior Front-end Developer', 'headline', 'Amsterdam', null, 1);
 INSERT INTO searches(id, amount, email, full_name, function_title, headline, location, profile_picture, user_id) VALUES(2, '95', 'd.li@gmail.com', 'Dave Li', 'Senior Java Developer', 'headline', 'Rotterdam', null, 2);
