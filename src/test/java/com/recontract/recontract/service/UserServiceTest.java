@@ -3,7 +3,6 @@ package com.recontract.recontract.service;
 import com.recontract.recontract.domain.User;
 import com.recontract.recontract.exception.BadRequestException;
 import com.recontract.recontract.exception.RecordNotFoundException;
-import com.recontract.recontract.exception.UserNotFoundException;
 import com.recontract.recontract.repository.UserRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -33,29 +32,6 @@ public class UserServiceTest {
 
     @Captor
     ArgumentCaptor<User> userCaptor;
-
-    @Test
-    public void findUserByIdSuccess() {
-        // ARRANGE
-        Long userId = 1L;
-        User user = new User();
-
-        // ACT
-        user.setUserId(userId);
-        when(userRepository.findById(user.getUserId())).thenReturn(Optional.of(user));
-        User user2 = userService.findUserById(userId);
-
-        // ASSERT
-        Assertions.assertEquals(user, user2);
-    }
-
-    @Test
-    public void findUserByIdThrowsException() {
-        Long userId = 2L;
-
-        Assertions.assertThrows(UserNotFoundException.class,
-                () -> userService.findUserById(userId));
-    }
 
     @Test
     public void updateUserSuccess() {

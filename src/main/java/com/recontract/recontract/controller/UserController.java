@@ -21,12 +21,6 @@ public class UserController {
         this.userServiceImpl = userServiceImpl;
     }
 
-    @GetMapping(value = "/id/{id}")
-    @PreAuthorize("hasRole('USER')")
-    public User findUserById(@PathVariable("id") long userId) {
-        return userServiceImpl.findUserById(userId);
-    }
-
     @PatchMapping(value = "/id/{id}")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<Object> updateUser(@PathVariable ("id") Long userId, @RequestBody dtoUser dto) {

@@ -12,7 +12,6 @@ public interface SearchService {
     List<dtoSearch> findSearchFreelancer();
     List<dtoSearchHiring> findSearchHiring();
     Long findSearchIdByUserId(Long userId);
-    Search findSearchById(Long userId);
     void createSearch(Search search, Long userId);
     void updateSearch(Long searchId,
                       String functionTitle,

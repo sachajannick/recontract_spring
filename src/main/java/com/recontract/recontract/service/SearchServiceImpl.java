@@ -28,7 +28,6 @@ public class SearchServiceImpl implements SearchService {
         this.userRepository = userRepository;
     }
 
-
     @Override
     public List<dtoSearch> findSearchFreelancer() {
         List<Search> list = searchRepository.findAll();
@@ -104,24 +103,6 @@ public class SearchServiceImpl implements SearchService {
         } catch (Exception e) {
             throw new RecordNotFoundException();
         }
-    }
-
-    @Override
-    public Search findSearchById(Long userId) {
-        List<Search> searches = searchRepository.findAll();
-        Search result = new Search();
-
-        try {
-            for (int i = 0; i < searches.size(); i++) {
-                if (searches.get(i).getUser().getUserId() == userId) {
-                    result = searches.get(i);
-                }
-            }
-        } catch (Exception e) {
-            throw new RecordNotFoundException();
-        }
-
-        return result;
     }
 
     @Override

@@ -3,7 +3,6 @@ package com.recontract.recontract.service;
 import java.util.Optional;
 import com.recontract.recontract.exception.BadRequestException;
 import com.recontract.recontract.exception.RecordNotFoundException;
-import com.recontract.recontract.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,17 +19,6 @@ public class UserServiceImpl implements UserService {
     public UserServiceImpl(UserRepository repository, PasswordEncoder passwordEncoder) {
         this.userRepository = repository;
         this.passwordEncoder = passwordEncoder;
-    }
-
-    @Override
-    public User findUserById(Long userId) {
-        Optional<User> user = userRepository.findById(userId);
-
-        if (user.isPresent()) {
-            return user.get();
-        } else {
-            throw new UserNotFoundException();
-        }
     }
 
     @Override

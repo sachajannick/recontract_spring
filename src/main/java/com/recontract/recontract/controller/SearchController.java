@@ -45,12 +45,6 @@ public class SearchController {
         return searchServiceImpl.findSearchIdByUserId(userId);
     }
 
-    @GetMapping(value = "/id/{id}")
-    @PreAuthorize("hasRole('USER')")
-    public Search findSearchById(@PathVariable ("id") Long userId) {
-        return searchServiceImpl.findSearchById(userId);
-    }
-
     @PostMapping(value = "/id/{id}")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<Object> createSearch(@PathVariable ("id") Long userId, @RequestBody Search search) {

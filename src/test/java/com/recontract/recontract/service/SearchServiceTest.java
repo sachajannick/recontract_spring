@@ -65,35 +65,6 @@ public class SearchServiceTest {
                 () -> searchService.findSearchIdByUserId(userId));
     }
 
-
-    @Test
-    public void findSearchByIdSuccess() {
-        // ARRANGE
-        User user = new User();
-        user.setUserId(1);
-
-        Search search = new Search();
-        search.setUser(user);
-
-        // ACT
-        when(searchRepository.findAll()).thenReturn(List.of(search));
-        Search result = searchService.findSearchById(user.getUserId());
-
-        // ASSERT
-        Assertions.assertEquals(search, result);
-    }
-
-    @Test
-    public void findSearchByIdThrowsException() {
-        Long userId = 2L;
-        Search search = new Search();
-
-        when(searchRepository.findAll()).thenReturn(List.of(search));
-
-        Assertions.assertThrows(RecordNotFoundException.class,
-                () -> searchService.findSearchById(userId));
-    }
-
     @Test
     public void createSearchSuccess() {
         // ARRANGE

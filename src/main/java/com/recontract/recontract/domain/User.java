@@ -5,8 +5,6 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.Set;
 
-
-
 @Entity
 @Table(name = "app_user")
 public class User {
