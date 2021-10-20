@@ -41,14 +41,14 @@ public class SearchServiceTest {
     public void findSearchIdByUserIdSuccess() {
         // ARRANGE
         User user = new User();
-        user.setUserId(1);
+        user.setId(1);
 
         Search search = new Search();
         search.setUser(user);
 
         // ACT
         when(searchRepository.findAll()).thenReturn(List.of(search));
-        Long result = searchService.findSearchIdByUserId(user.getUserId());
+        Long result = searchService.findSearchIdByUserId(user.getId());
 
         // ASSERT
         Assertions.assertEquals(0L, result);
@@ -69,18 +69,18 @@ public class SearchServiceTest {
     public void createSearchSuccess() {
         // ARRANGE
         User user = new User();
-        user.setUserId(1L);
+        user.setId(1L);
 
         Search search = new Search();
         search.setSearchId(1L);
 
         // ACT
-        when(userRepository.findById(user.getUserId())).thenReturn(Optional.of(user));
-        searchService.createSearch(search, user.getUserId());
+        when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
+        searchService.createSearch(search, user.getId());
 
         // ASSERT
         verify(searchRepository).save(searchCaptor.capture());
-        Assertions.assertEquals(1L, searchCaptor.getValue().getUser().getUserId());
+        Assertions.assertEquals(1L, searchCaptor.getValue().getUser().getId());
     }
 
     @Test
@@ -145,14 +145,14 @@ public class SearchServiceTest {
     public void checkSearchIsPresentOnUserSuccess() {
         // ARRANGE
         User user = new User();
-        user.setUserId(1L);
+        user.setId(1L);
 
         Search search = new Search();
         search.setUser(user);
 
         // ACT
         when(searchRepository.findAll()).thenReturn(List.of(search));
-        boolean searchIsPresent = searchService.checkSearchIsPresentOnUser(user.getUserId());
+        boolean searchIsPresent = searchService.checkSearchIsPresentOnUser(user.getId());
 
         // ASSERT
         Assertions.assertTrue(searchIsPresent);

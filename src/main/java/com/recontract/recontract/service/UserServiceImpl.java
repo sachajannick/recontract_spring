@@ -24,8 +24,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(String username,
                            String password,
-                           Long userId) {
-        Optional<User> user = userRepository.findById(userId);
+                           long id) {
+        Optional<User> user = userRepository.findById(id);
 
         if (user.isPresent()) {
             user.get().setUsername(username);
@@ -37,8 +37,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUserById(Long userId) {
-        Optional<User> user = userRepository.findById(userId);
+    public void deleteUserById(long id) {
+        Optional<User> user = userRepository.findById(id);
 
         if (user.isPresent()) {
             userRepository.delete(user.get());

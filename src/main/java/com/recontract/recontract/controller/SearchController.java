@@ -41,14 +41,14 @@ public class SearchController {
 
     @GetMapping(value = "/long/id/{id}")
     @PreAuthorize("hasRole('USER')")
-    public Long findSearchIdByUserId(@PathVariable ("id") Long userId) {
-        return searchServiceImpl.findSearchIdByUserId(userId);
+    public Long findSearchIdByUserId(@PathVariable ("id") long id) {
+        return searchServiceImpl.findSearchIdByUserId(id);
     }
 
     @PostMapping(value = "/id/{id}")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<Object> createSearch(@PathVariable ("id") Long userId, @RequestBody Search search) {
-        searchServiceImpl.createSearch(search, userId);
+    public ResponseEntity<Object> createSearch(@PathVariable ("id") long id, @RequestBody Search search) {
+        searchServiceImpl.createSearch(search, id);
         return ResponseEntity.ok("Search created");
     }
 
@@ -67,8 +67,8 @@ public class SearchController {
 
     @GetMapping(value = "/boolean/id/{id}")
     @PreAuthorize("hasRole('USER')")
-    public boolean checkSearchIsPresentOnUser(@PathVariable ("id") Long userId) {
-        return searchServiceImpl.checkSearchIsPresentOnUser(userId);
+    public boolean checkSearchIsPresentOnUser(@PathVariable ("id") long id) {
+        return searchServiceImpl.checkSearchIsPresentOnUser(id);
     }
 
     @PatchMapping(value="/profile-picture/id/{id}")

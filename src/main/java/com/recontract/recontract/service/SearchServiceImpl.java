@@ -39,7 +39,7 @@ public class SearchServiceImpl implements SearchService {
                 if (search.getUser().getHiringOrFreelancer().equals("freelancer")) {
                     dtoSearch dto = new dtoSearch();
                     dto.setSearchId(search.getSearchId());
-                    dto.setUserId(search.getUser().getUserId());
+                    dto.setId(search.getUser().getId());
                     dto.setFunctionTitle(search.getFunctionTitle());
                     dto.setAmount(search.getAmount());
                     dto.setLocation(search.getLocation());
@@ -68,7 +68,7 @@ public class SearchServiceImpl implements SearchService {
                 if (search.getUser().getHiringOrFreelancer().equals("hiring")) {
                     dtoSearchHiring dto = new dtoSearchHiring();
                     dto.setSearchId(search.getSearchId());
-                    dto.setUserId(search.getUser().getUserId());
+                    dto.setId(search.getUser().getId());
                     dto.setFunctionTitle(search.getFunctionTitle());
                     dto.setAmount(search.getAmount());
                     dto.setLocation(search.getLocation());
@@ -87,14 +87,14 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
-    public Long findSearchIdByUserId(Long userId) {
+    public Long findSearchIdByUserId(long id) {
         List<Search> list = searchRepository.findAll();
         Long result = 0L;
 
         try {
             for (int i = 0; i < list.size(); i++) {
                 Search search = list.get(i);
-                if (search.getUser().getUserId() == userId) {
+                if (search.getUser().getId() == id) {
                     result = search.getSearchId();
                 }
             }
@@ -107,8 +107,8 @@ public class SearchServiceImpl implements SearchService {
 
     @Override
     public void createSearch(Search search,
-                             Long userId) {
-        Optional<User> user = userRepository.findById(userId);
+                             long id) {
+        Optional<User> user = userRepository.findById(id);
 
         try {
             search.setUser(user.get());
@@ -142,7 +142,7 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
-    public boolean checkSearchIsPresentOnUser(Long userId) {
+    public boolean checkSearchIsPresentOnUser(long id) {
         boolean searchIsPresent = false;
         List<Search> list = searchRepository.findAll();
         Search search = new Search();
@@ -150,7 +150,7 @@ public class SearchServiceImpl implements SearchService {
         try {
             for (int i = 0; i < list.size(); i++) {
                 search = list.get(i);
-                if (search.getUser().getUserId() == userId) {
+                if (search.getUser().getId() == id) {
                     searchIsPresent = true;
                 }
             }

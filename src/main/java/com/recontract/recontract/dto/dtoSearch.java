@@ -5,7 +5,7 @@ import javax.persistence.Lob;
 public class dtoSearch {
 
     public Long searchId;
-    public Long userId;
+    public long id;
     public String functionTitle;
     public int amount;
     public String location;
@@ -23,12 +23,12 @@ public class dtoSearch {
         this.searchId = searchId;
     }
 
-    public Long getUserId() {
-        return userId;
+    public long getId() {
+        return id;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getFunctionTitle() {

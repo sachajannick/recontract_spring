@@ -45,11 +45,11 @@ public class User {
         this.hiringOrFreelancer = hiringOrFreelancer;
     }
 
-    public long getUserId() {
+    public long getId() {
         return id;
     }
 
-    public void setUserId(long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

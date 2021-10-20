@@ -44,7 +44,7 @@ public class UserServiceTest {
 
         // ACT
         Optional<User> user = Optional.of(new User());
-        user.get().setUserId(userId);
+        user.get().setId(userId);
         user.get().setUsername(username);
         user.get().setPassword(password);
         when(userRepository.findById(userId)).thenReturn(user);
@@ -80,7 +80,7 @@ public class UserServiceTest {
         String username = "username";
         String password = "password";
         User user = new User();
-        user.setUserId(userId);
+        user.setId(userId);
         user.setUsername(username);
         user.setPassword(password);
 

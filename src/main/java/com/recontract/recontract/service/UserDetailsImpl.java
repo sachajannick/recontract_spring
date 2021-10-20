@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 
 public class UserDetailsImpl implements UserDetails {
 
-    private static final long serialVersionUID = 1L;
-    private final Long id;
+    private static final long serialVersionUID = 1;
+    private final long id;
     private final String username;
 
     @JsonIgnore
@@ -21,7 +21,7 @@ public class UserDetailsImpl implements UserDetails {
 
     private final Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(Long id,
+    public UserDetailsImpl(long id,
                            String username,
                            String password,
                            Collection<? extends GrantedAuthority> authorities) {
@@ -37,7 +37,7 @@ public class UserDetailsImpl implements UserDetails {
                 .collect(Collectors.toList());
 
         return new UserDetailsImpl(
-                user.getUserId(),
+                user.getId(),
                 user.getUsername(),
                 user.getPassword(),
                 authorities);

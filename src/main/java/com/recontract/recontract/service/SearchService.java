@@ -11,8 +11,8 @@ public interface SearchService {
 
     List<dtoSearch> findSearchFreelancer();
     List<dtoSearchHiring> findSearchHiring();
-    Long findSearchIdByUserId(Long userId);
-    void createSearch(Search search, Long userId);
+    Long findSearchIdByUserId(long id);
+    void createSearch(Search search, long id);
     void updateSearch(Long searchId,
                       String functionTitle,
                       int amount,
@@ -20,7 +20,7 @@ public interface SearchService {
                       String headline,
                       String email,
                       String fullName);
-    boolean checkSearchIsPresentOnUser(Long userId);
+    boolean checkSearchIsPresentOnUser(long id);
     void uploadProfilePicture(Long searchId, MultipartFile file) throws IOException;
     byte[] getProfilePicture(Long searchId);
 }
