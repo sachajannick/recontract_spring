@@ -13,7 +13,7 @@ INSERT INTO user_role(user_id, role_id) VALUES(3, 1);
 INSERT INTO user_role(user_id, role_id) VALUES(4, 1);
 INSERT INTO user_role(user_id, role_id) VALUES(5, 2);
 
-INSERT INTO searches(id, amount, email, full_name, function_title, headline, location, profile_picture, user_id) VALUES(1, '85', 's.fadim@gmail.com', 'Sarah Fadim', 'Medior Front-end Developer', 'headline', 'Amsterdam', null, 1);
-INSERT INTO searches(id, amount, email, full_name, function_title, headline, location, profile_picture, user_id) VALUES(2, '95', 'd.li@gmail.com', 'Dave Li', 'Senior Java Developer', 'headline', 'Rotterdam', null, 2);
-INSERT INTO searches(id, amount, email, full_name, function_title, headline, location, profile_picture, user_id) VALUES(3, '80', 'sam@kpmg.com', 'Sam Kessels', 'Medior Front-end Developer', 'headline', 'Amstelveen', null, 3);
-INSERT INTO searches(id, amount, email, full_name, function_title, headline, location, profile_picture, user_id) VALUES(4, '95', 'christina@capgemini.com', 'Christina Smith', 'Senior Java Developer', 'headline', 'Utrecht', null, 4);
+INSERT INTO searches(id, amount, email, full_name, function_title, headline, location, profile_picture, user_id) VALUES(1, '85', 's.fadim@gmail.com', 'Sarah Fadim', 'Medior Front-end Developer', 'Headline to be inserted here', 'Amsterdam', null, 1);
+INSERT INTO searches(id, amount, email, full_name, function_title, headline, location, profile_picture, user_id) VALUES(2, '95', 'd.li@gmail.com', 'Dave Li', 'Senior Java Developer', 'Headline to be inserted here', 'Rotterdam', null, 2);
+INSERT INTO searches(id, amount, email, full_name, function_title, headline, location, profile_picture, user_id) VALUES(3, '80', 'sam@kpmg.com', 'Sam Kessels', 'Medior Front-end Developer', 'Headline to be inserted here', 'Amstelveen', null, 3);
+INSERT INTO searches(id, amount, email, full_name, function_title, headline, location, profile_picture, user_id) VALUES(4, '95', 'christina@capgemini.com', 'Christina Smith', 'Senior Java Developer', 'Headline to be inserted here', 'Utrecht', null, 4);
